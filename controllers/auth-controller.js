@@ -1,3 +1,5 @@
+const mongoose = require('mongoose')
+
 const login = (req, res) => {
   res.send('login endpoint')
 }
