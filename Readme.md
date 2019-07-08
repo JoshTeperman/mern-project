@@ -62,8 +62,57 @@ __1) Canvas__
 - Search only available on 'Assignments' Page
 - Ugly, no colour
 
-### Features / Functionality
+__2) UDEMY__
 
+#### What's good about it?
+- clean, modern design
+  - feature-rich
+  - elegant tiles
+  - colourful
+- Landing page when not logged in: call to action is a search bar 'what do you want to learn?' -> encourages users to explore the site
+- Landing page after login
+  - 'welcome back Josh' greeting
+  - 'ready to jump back in?' link to continue recent course, allows you to scrool through current courses
+- My Courses View
+  - relatively quiet and simple
+- Navbar
+  - My courses drop-down
+  - Notifications tab
+- Support page with FAQ
+- Individual Course View:
+  - Content viewed alongside full course description in same view (can view progress, next lesson etc)
+  - checklist / tick boxes for individual lessons / modules
+  - Q&A (comments) tab for individual lessons
+  - '150 / 300 complete'
+  - 'Click to reset progress'
+
+#### What's bad about it?
+- Complicated / 'busy' UI on landing page -> includes a lot of recommended courses 'what to study next' type stuff
+
+__3) COURSERA__
+https://www.coursera.org/
+
+#### What's good about it?
+- Landing Page / Dashboard is very simple
+  - My Courses
+  - Last Active
+  - Completed
+  - Accomplishments
+- Navbar
+  - Simple, has searchbar, logo, profile dropdown
+- Course Description Page
+  - Nav Bar highlights current section as you scroll (view example: https://www.coursera.org/learn/neural-networks-deep-learning)
+  - 'At a glance' section: describes course length (# of hours), number of modules
+  - Bulleted course description
+  - 'This course is part 1 in the XYZ series"
+  - 'Skills you will gain: ...'
+
+
+#### What's bad about it?
+- 
+
+
+### Features / Functionality
 
 > *"A learning management system (LMS) is a software application for the administration, documentation, tracking, reporting, and delivery of educational courses, training programs, or learning and development programs"* - Wikipedia
 
@@ -139,11 +188,11 @@ __As an MI employee I can...__
 - View reporting & analytics for any program
 
 ### VIEWS
-- Landing Page (unauthenticated)
-- Login (&& Registration ??) Page
+- Landing Page for Unauthenticated User
 - Landing Page (authenticated) => dashboard
+- Login (&& Registration ??) Page
 - Course View Page (view individual course, course description, lessons)
 - Lesson View Page (Lesson Content)
-- User Profile Page
+- User Profile Page (user / account details)
 - Support Page / Help Page
-- Analytics / See all results Page
+- Analytics Page (view status / results for all users: only available to moderator / supervisor users)
