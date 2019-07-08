@@ -27,6 +27,8 @@ This file should contain,
 * Screenshots of Trello board(s)
 * Answers to the Short Answer questions (Section 2.2)
 
+# Design Process
+
 ## LMS Research & Design
 
 ### Considerations
@@ -36,8 +38,8 @@ This file should contain,
 
 ### Examples of LMS Design
 
-__1) Canvas__\
-What's good about it?
+__1) Canvas__
+#### What's good about it?
 - 'Search for assignment' searchbar
 - Assignment Groupings:
   - Upcoming assignments 
@@ -50,7 +52,7 @@ What's good about it?
 - Breadcrumbs at top of page: 'Fast Track 2019' > Modules 
 - Email notifications for graded content
 
-What's bad about it?
+#### What's bad about it?
 - Overly Complicated
 - No intuitived, central landing page or dashboard that lets you know how you're supposed to navigate the site
 - Unclear Section Naming
@@ -58,7 +60,7 @@ What's bad about it?
 - Obscure / Pointless Navigation Options
 - Hard to find the information you're looking for
 - Search only available on 'Assignments' Page
-- Ugly
+- Ugly, no colour
 
 ### Features / Functionality
 
