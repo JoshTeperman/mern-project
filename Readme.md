@@ -27,9 +27,41 @@ This file should contain,
 * Screenshots of Trello board(s)
 * Answers to the Short Answer questions (Section 2.2)
 
-## LMS Research
+## LMS Research & Design
+
+### Considerations
+
+1) For an LMS to be *useful* to an organisation, it has to be *easy to use*. Therefore we should minimise features and prioritise an intuitive UI over bells-and-whistles-type features.
+2) It should be obvious how to use the website, where to navigate to, what your options are and what (if any) assigned tasks are upcoming
+
+### Examples of LMS Design
+
+__1) Canvas__\
+What's good about it?
+- 'Search for assignment' searchbar
+- Assignment Groupings:
+  - Upcoming assignments 
+  - Undated Assignments
+  - Past Assignments
+- Modules maximise and minimise view, so you can view all modules or maximise one at a time
+- View completed 'ticks' for finished content
+- View Status for submitted / completed assignments
+- Individualised Cohort / Course name ('Fast Track 2019') with individual branding (CA Logo)
+- Breadcrumbs at top of page: 'Fast Track 2019' > Modules 
+- Email notifications for graded content
+
+What's bad about it?
+- Overly Complicated
+- No intuitived, central landing page or dashboard that lets you know how you're supposed to navigate the site
+- Unclear Section Naming
+  - Modules, Assignments, Quizzes ??? 
+- Obscure / Pointless Navigation Options
+- Hard to find the information you're looking for
+- Search only available on 'Assignments' Page
+- Ugly
 
 ### Features / Functionality
+
 
 > *"A learning management system (LMS) is a software application for the administration, documentation, tracking, reporting, and delivery of educational courses, training programs, or learning and development programs"* - Wikipedia
 
@@ -47,9 +79,12 @@ This file should contain,
   - Administrator / MI Academy Staff
 - Individualised user dashboards showing course / lesson content
 - Personalised views for users. View 'My Courses' which shows individual progress, and view only courses made available to that user
+- A 'Next' button or link after login, which is a quick link to the next module / lesson after user's previous session
 - Flexible allocation of courses to individual users
 - Stripe / Payments integration
-- Help Section where students can view information about the course, contact MI Staff
+- Help Section where students can view information about the course, contact MI Staff 
+  - 'Ask your Instructor a question'
+  - Report a problem
 
 #### BUCKET LIST
 - Publish modularized training programs that can be broken down into segments.
@@ -67,6 +102,11 @@ This file should contain,
 - In-app notifications
 - Email notifications
 - Social Media share buttons for unrestricted course content / assessment results / course completion etc
+- Prerequesites (must complete A before B)
+- To Do list (could be automated)
+- Document uploads for project submissions
+- Separate users into teams
+- Supervisors (whoever the course manager is) can leave feedback on submitted work
 
 
 ### User Stories
