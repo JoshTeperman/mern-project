@@ -68,14 +68,13 @@ __1) Canvas__
 > *"A learning management system (LMS) is a software application for the administration, documentation, tracking, reporting, and delivery of educational courses, training programs, or learning and development programs"* - Wikipedia
 
 #### MVP
-
 - Publish training programs
 - Students receive a 'Complete' Badge when each lesson is complete and another when the course is complete
 - Content Management system for different media types:
   - Text (Markdown?)
   - Video
   - Images
-- User Login and Registration, with multiple user roles:
+- User Login (and Registration ??), with multiple user roles:
   - Normal User (marketer, student)
   - Supervisor (Manager)
   - Administrator / MI Academy Staff
@@ -83,12 +82,12 @@ __1) Canvas__
 - Personalised views for users. View 'My Courses' which shows individual progress, and view only courses made available to that user
 - A 'Next' button or link after login, which is a quick link to the next module / lesson after user's previous session
 - Flexible allocation of courses to individual users
-- Stripe / Payments integration
 - Help Section where students can view information about the course, contact MI Staff 
   - 'Ask your Instructor a question'
   - Report a problem
 
 #### BUCKET LIST
+- Stripe / Payments integration - Does she need payment integration?
 - Publish modularized training programs that can be broken down into segments.
 - Content Management system for different media types:
   - Text (Markdown?)
@@ -139,3 +138,12 @@ __As an MI employee I can...__
 - View an overhead view of all ongoing programs and their details so that I can track customer progress
 - View reporting & analytics for any program
 
+### VIEWS
+- Landing Page (unauthenticated)
+- Login (&& Registration ??) Page
+- Landing Page (authenticated) => dashboard
+- Course View Page (view individual course, course description, lessons)
+- Lesson View Page (Lesson Content)
+- User Profile Page
+- Support Page / Help Page
+- Analytics / See all results Page
