@@ -94,6 +94,7 @@ This file should contain,
 
 ### Market Research: Examples of LMS
 
+
 __1) Canvas__
 
 GOOD POINTS
