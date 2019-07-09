@@ -1,6 +1,8 @@
 # MERN Project
 
-GitHub Repo: https://github.com/JoshTeperman/mern-project
+[Website]()<br>
+[GitHub Repo: Backend](https://github.com/JoshTeperman/mern-project-backend)<br>
+[GitHub Repo: Frontend](https://github.com/JoshTeperman/mern-project-backend)
 
 This file should contain,
 
@@ -27,93 +29,10 @@ This file should contain,
 * Screenshots of Trello board(s)
 * Answers to the Short Answer questions (Section 2.2)
 
-# Design Process
-
-## LMS Research & Design
-
-### Considerations
-
-1) For an LMS to be *useful* to an organisation, it has to be *easy to use*. Therefore we should minimise features and prioritise an intuitive UI over bells-and-whistles-type features.
-2) It should be obvious how to use the website, where to navigate to, what your options are and what (if any) assigned tasks are upcoming
-
-### Examples of LMS Design
-
-__1) Canvas__
-#### What's good about it?
-- 'Search for assignment' searchbar
-- Assignment Groupings:
-  - Upcoming assignments 
-  - Undated Assignments
-  - Past Assignments
-- Modules maximise and minimise view, so you can view all modules or maximise one at a time
-- View completed 'ticks' for finished content
-- View Status for submitted / completed assignments
-- Individualised Cohort / Course name ('Fast Track 2019') with individual branding (CA Logo)
-- Breadcrumbs at top of page: 'Fast Track 2019' > Modules 
-- Email notifications for graded content
-
-#### What's bad about it?
-- Overly Complicated
-- No intuitived, central landing page or dashboard that lets you know how you're supposed to navigate the site
-- Unclear Section Naming
-  - Modules, Assignments, Quizzes ??? 
-- Obscure / Pointless Navigation Options
-- Hard to find the information you're looking for
-- Search only available on 'Assignments' Page
-- Ugly, no colour
-
-__2) UDEMY__
-
-#### What's good about it?
-- clean, modern design
-  - feature-rich
-  - elegant tiles
-  - colourful
-- Landing page when not logged in: call to action is a search bar 'what do you want to learn?' -> encourages users to explore the site
-- Landing page after login
-  - 'welcome back Josh' greeting
-  - 'ready to jump back in?' link to continue recent course, allows you to scrool through current courses
-- My Courses View
-  - relatively quiet and simple
-- Navbar
-  - My courses drop-down
-  - Notifications tab
-- Support page with FAQ
-- Individual Course View:
-  - Content viewed alongside full course description in same view (can view progress, next lesson etc)
-  - checklist / tick boxes for individual lessons / modules
-  - Q&A (comments) tab for individual lessons
-  - '150 / 300 complete'
-  - 'Click to reset progress'
-
-#### What's bad about it?
-- Complicated / 'busy' UI on landing page -> includes a lot of recommended courses 'what to study next' type stuff
-
-__3) COURSERA__
-https://www.coursera.org/
-
-#### What's good about it?
-- Landing Page / Dashboard is very simple
-  - My Courses
-  - Last Active
-  - Completed
-  - Accomplishments
-- Navbar
-  - Simple, has searchbar, logo, profile dropdown
-- Course Description Page
-  - Nav Bar highlights current section as you scroll (view example: https://www.coursera.org/learn/neural-networks-deep-learning)
-  - 'At a glance' section: describes course length (# of hours), number of modules
-  - Bulleted course description
-  - 'This course is part 1 in the XYZ series"
-  - 'Skills you will gain: ...'
-
-
-#### What's bad about it?
-- 
-
-
-
-### Features / Functionality
+# Project Description
+## Problem Definition
+## Application Purpose
+## Features & Functionality
 
 > *"A learning management system (LMS) is a software application for the administration, documentation, tracking, reporting, and delivery of educational courses, training programs, or learning and development programs"* - Wikipedia
 
@@ -158,10 +77,94 @@ https://www.coursera.org/
 - Document uploads for project submissions
 - Separate users into teams
 - Supervisors (whoever the course manager is) can leave feedback on submitted work
+## Tech Stack
+## Setting up the App
+### Configuration
+### Deployment
+### Troubleshooting
 
+# Design Documentation
 
-### User Stories
-*Persona, What and Why*
+## LMS Research & Design
+
+### Considerations
+
+1) For an LMS to be *useful* to an organisation, it has to be *easy to use*. Therefore we should minimise features and prioritise an intuitive UI over bells-and-whistles-type features.
+2) It should be obvious how to use the website, where to navigate to, what your options are and what (if any) assigned tasks are upcoming
+
+### Market Research: Examples of LMS
+
+__1) Canvas__
+
+GOOD POINTS
+- 'Search for assignment' searchbar
+- Assignment Groupings:
+  - Upcoming assignments 
+  - Undated Assignments
+  - Past Assignments
+- Modules maximise and minimise view, so you can view all modules or maximise one at a time
+- View completed 'ticks' for finished content
+- View Status for submitted / completed assignments
+- Individualised Cohort / Course name ('Fast Track 2019') with individual branding (CA Logo)
+- Breadcrumbs at top of page: 'Fast Track 2019' > Modules 
+- Email notifications for graded content
+
+BAD POINTS
+- Overly Complicated
+- No intuitived, central landing page or dashboard that lets you know how you're supposed to navigate the site
+- Unclear Section Naming
+  - Modules, Assignments, Quizzes ??? 
+- Obscure / Pointless Navigation Options
+- Hard to find the information you're looking for
+- Search only available on 'Assignments' Page
+- Ugly, no colour
+
+__2) UDEMY__
+
+GOOD POINTS
+- clean, modern design
+  - feature-rich
+  - elegant tiles
+  - colourful
+- Landing page when not logged in: call to action is a search bar 'what do you want to learn?' -> encourages users to explore the site
+- Landing page after login
+  - 'welcome back Josh' greeting
+  - 'ready to jump back in?' link to continue recent course, allows you to scrool through current courses
+- My Courses View
+  - relatively quiet and simple
+- Navbar
+  - My courses drop-down
+  - Notifications tab
+- Support page with FAQ
+- Individual Course View:
+  - Content viewed alongside full course description in same view (can view progress, next lesson etc)
+  - checklist / tick boxes for individual lessons / modules
+  - Q&A (comments) tab for individual lessons
+  - '150 / 300 complete'
+  - 'Click to reset progress'
+
+BAD POINTS
+- Complicated / 'busy' UI on landing page -> includes a lot of recommended courses 'what to study next' type stuff
+
+__3) COURSERA__
+https://www.coursera.org/
+
+GOOD POINTS
+- Landing Page / Dashboard is very simple
+  - My Courses
+  - Last Active
+  - Completed
+  - Accomplishments
+- Navbar
+  - Simple, has searchbar, logo, profile dropdown
+- Course Description Page
+  - Nav Bar highlights current section as you scroll (view example: https://www.coursera.org/learn/neural-networks-deep-learning)
+  - 'At a glance' section: describes course length (# of hours), number of modules
+  - Bulleted course description
+  - 'This course is part 1 in the XYZ series"
+  - 'Skills you will gain: ...'
+
+## User Stories
 
 __As a marketer / student I can...__
 
@@ -188,7 +191,7 @@ __As an MI employee I can...__
 - View an overhead view of all ongoing programs and their details so that I can track customer progress
 - View reporting & analytics for any program
 
-### VIEWS
+## Page Views
 - Landing Page for Unauthenticated User
 - Landing Page (authenticated) => dashboard
 - Login (&& Registration ??) Page
@@ -197,3 +200,52 @@ __As an MI employee I can...__
 - User Profile Page (user / account details)
 - Support Page / Help Page
 - Analytics Page (view status / results for all users: only available to moderator / supervisor users)
+
+## Workflow / Page Flow Diagrams
+
+## Wireframes
+
+## Database ERD
+
+## Data Flow Diagram
+
+## OO Design Documentation
+
+# Project Management & Planning
+
+## Project Plan & Timeline
+Week 1:
+- Project Planning
+  - Set up communication channels between team members
+  - Set up communication channel with Client
+  - Set up Trello board in Agile format. List requirements from the rubric and delegate initial tasks 
+- Product Design
+  - Familiarise ourselves with branding and feel of client business
+  - Research competitor UI/UX and list pros and cons
+  - Draft user stories, product MVP and features for meeting with the client
+  - Client meeting to finalise project brief and product description
+  - Make list of necessary app page views
+  - Wireframes and Design for Desktop Views
+  - Design Data Structure and Database Schema based on client brief, MVP functionality and page views
+  - Seed data and share across team to ensure the same development environment across devices
+- Initial App Deployment
+  - Create GitHub Repositories
+  - Create scaffolded frontend and backend code
+  - Deploy initial code to production 
+- Testing
+  - Write tests for initial backend code
+  - Write test for initial frontend code
+
+
+## Client Communications
+
+## Trello / Figma / GitHub / Other Communication
+
+# Short Answer Questions
+1) What are the most important aspects of quality software?
+2) What libraries are being used in the app and why?
+3) A team is about to engage in a project, developing a website for a small business. What knowledge and skills would they need in order to develop the project?
+4) Within your own project what knowledge or skills were required to complete your project, and overcome challenges?
+5) Evaluate how effective your knowledge and skills were this project, using examples, and suggest changes or improvements for future projects of a similar nature?
+
+
