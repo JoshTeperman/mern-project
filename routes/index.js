@@ -9,7 +9,7 @@ router.use('/', require('./public-routes'))
 
 // protected endpoints ->
 
-router.use('/user', require('./user-routes'))
+router.use('/user', require('./protected-routes/user-routes'))
 router.use('/courses', require('./courses-routes'))
 
 module.exports = router;
