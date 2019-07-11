@@ -1,5 +1,5 @@
-const dashboard = (req, res) => {
-  res.send('user dashboard endpoint')
+const analytics = (req, res) => {
+  res.send('user analytics endpoint')
 }
 
 const profile = (req, res) => {
@@ -7,6 +7,6 @@ const profile = (req, res) => {
 }
 
 module.exports = {
-  dashboard,
+  analytics,
   profile
 }
