@@ -12,7 +12,7 @@ router.get('/programs', getPrograms)
 router.get('/projects', getProjects)
 router.get('/resources', getResources)
 
-router.get('/seedData', seedDatabase)
+router.post('/seed', seedDatabase)
 
 module.exports = router;
 

@@ -121,7 +121,6 @@ projectData = [
   },
 ]
 
-'pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other']
 resourceData = [
   {
     name: 'This is a pdf',
