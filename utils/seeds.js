@@ -6,49 +6,53 @@ const Project = require('../models/Project')
 const Resource = require('../models/Resource')
 
 const { userData, programData, clientData, projectData, resourceData } = require('./seedData')
-let seedClient;
+
+const addEmployee = async (user, client) => {
+  client
+}
 
 const seedClients = async () => {
   console.log('Seeding Clients');
   try {
-    const newClient = await Client.create({
-      _id: new mongoose.Types.ObjectId(),
-      companyName: 'MI Academy',
+    clientData.map(async (companyName) => {
+      const newClient = await Client.create({
+        _id: new mongoose.Types.ObjectId(),
+        companyName: companyName,
+      })
+      // console.log({message: 'Seeded client', result: newClient});
     })
-    if (newClient) {
-      seedClient = newClient
-      console.log({message: 'Seeded client', result: newClient});
-    } else {
-      console.log('Client not created');
-    }
+
   } catch(err) { console.log(err) }
 }
 
 const seedUsers = async () =>  {
-  console.log('Seeding Users');
   try {
+    console.log('Seeding Users');
+    // const users = await User.find()
+    // console.log(users);
+    const seededClient = await Client.find()
+    await console.log(`seeded Client: {seededClient}`);
+    
+    // console.log(seededClient[0]._id);
     const superAdminUser = await User.create({
       _id: new mongoose.Types.ObjectId(),
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',
-      // clientID: new mongoose.Types.ObjectId(),
+      clientID: seededClient._id
     })
-    console.log(seedClient);
 
-    const newUser = await User.create({
-      _id: new mongoose.Types.ObjectId(),
-      email: 'student@student.com',
-      password: 'password',
-      role: 'student',
-      clientID: seedClient._id,
+    userData.map( async (user) => {
+      const newUser = await User.create({
+        _id: new mongoose.Types.ObjectId(),
+        email: user.email,
+        password: user.password,
+        role: user.role,
+      })
+      // Client.employees.push(newUser._id)
+      // console.log({message: 'Seeded Student User', result: newUser});
     })
-    if (newUser) {
-      console.log({message: 'Seeded Student User', result: newUser});
-    } else {
-      console.log('Student User not created');
-    }
-  } catch(err) { console.log(err) }
+  } catch(err) { console.log(err.message, err.stack) }
 }
 
 const seedDatabase = async (req, res) => {
@@ -64,7 +68,8 @@ const seedDatabase = async (req, res) => {
   
     try {
       await seedClients()
-      await seedUsers()
+      const clients = await Client.find()
+      await console.log(clients);
     } catch(err) { res.send(err) }
 
   } catch(err) { return res.send(err) }

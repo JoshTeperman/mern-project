@@ -1,4 +1,4 @@
-clientData = ['Coder Academy', 'Biggin Scott', 'Jellis Craig', 'McDonalds', 'Le Wagon', 'General Assembly']
+clientData = ['MI Academy', 'Coder Academy', 'Biggin Scott', 'Jellis Craig', 'McDonalds', 'Le Wagon', 'General Assembly']
 
 userData = [
   {
