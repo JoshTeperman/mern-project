@@ -1,32 +1,35 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+require('./Client')
 
 const userSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+  },
   email: {
     type: String,
     required: true
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   role: {
     type: String,
-    required: true
+    required: true,
+    default: 'student'
   },
-  company: {
-    type: String,
-    required: true
+  clientID: {
+    type: Schema.Types.ObjectId,
+    ref: 'Client'
   },
-  status: {
-    // active, inactive
-    type: String,
-    required: true
-  }
+  active: {
+    type: Boolean,
+    default: true
+  },
+  programs: []
 })
 
 const User = mongoose.model('User', userSchema)
 
 module.exports = User
-
-// TODO: How to store course / lesson progress -> should we make a copy of every assigned course and keep a progress value for each? Should we only keep a list of IDs and store {ID: progress}
