@@ -1,4 +1,4 @@
-clientData = ['Coder Academy', 'Biggin Scott', 'Jellis Craig', 'McDonalds', 'Le Wagon', 'General Assembly']
+clientData = ['MI Academy', 'Coder Academy', 'Biggin Scott', 'Jellis Craig', 'McDonalds', 'Le Wagon', 'General Assembly']
 
 userData = [
   {
@@ -121,7 +121,6 @@ projectData = [
   },
 ]
 
-'pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other']
 resourceData = [
   {
     name: 'This is a pdf',

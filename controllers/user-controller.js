@@ -1,25 +1,33 @@
-const analytics = (req, res) => {
-  res.send('user analytics endpoint')
-}
-
 const profile = (req, res) => {
   res.send('user profile endpoint')
 }
 
-const seedUser = (req, res) => {
-  console.log('seedUser route');
-  const newUser = db.users.insertOne({
-    _id: new mongoose.Types.ObjectId(),
-    email: 'ianfleming@email.com',
-    password: 'password',
-    role: 'student',
-    clientID: new mongoose.Types.ObjectId(),
-  })
-  res.json({user: newUser})
+const userStats = (req, res) => {
+  res.send('user stats endpoint')
+}
+
+const fetchProgram = (req, res) => {
+  res.send('user Program endpoint')
+}
+const fetchProject = (req, res) => {
+  res.send('user Project endpoint')
+}
+const fetchProjects= (req, res) => {
+  res.send('user Projects endpoint')
+}
+const fetchResource = (req, res) => {
+  res.send('user resource endpoint')
+}
+const fetchResources = (req, res) => {
+  res.send('user resources endpoint')
 }
 
 module.exports = {
-  analytics,
-  profile,
-  seedUser
+  profile, 
+  userStats, 
+  fetchProgram, 
+  fetchProject, 
+  fetchProjects, 
+  fetchResource, 
+  fetchResources 
 }
