@@ -6,7 +6,12 @@ const contact = (req, res) => {
   res.send('contact endpoint')
 }
 
+const help = (req, res) => {
+  res.send('help endpoint')
+}
+
 module.exports = {
   home,
-  contact
+  contact,
+  help
 }
