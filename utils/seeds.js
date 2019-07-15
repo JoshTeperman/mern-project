@@ -7,52 +7,68 @@ const Resource = require('../models/Resource')
 
 const { userData, programData, clientData, projectData, resourceData } = require('./seedData')
 
-const addEmployee = async (user, client) => {
-  client
-}
-
 const seedClients = async () => {
   console.log('Seeding Clients');
   try {
-    clientData.map(async (companyName) => {
+    return clientData.map(async (companyName) => {
       const newClient = await Client.create({
         _id: new mongoose.Types.ObjectId(),
         companyName: companyName,
       })
       // console.log({message: 'Seeded client', result: newClient});
+      return newClient
     })
-
   } catch(err) { console.log(err) }
 }
 
 const seedUsers = async () =>  {
+  const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
+
   try {
-    console.log('Seeding Users');
-    // const users = await User.find()
-    // console.log(users);
-    const seededClient = await Client.find()
-    await console.log(`seeded Client: {seededClient}`);
-    
-    // console.log(seededClient[0]._id);
-    const superAdminUser = await User.create({
+    console.log('Seeding Users ...');
+    console.log('Seeding Super Admin ...');
+    await User.create({
       _id: new mongoose.Types.ObjectId(),
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',
-      clientID: seededClient._id
     })
 
-    userData.map( async (user) => {
+
+    User.find().populate('clientID').exec((err, users) => {
+        // if (err) console.log(err);
+        // users.map((user) => console.log(user.clientID.companyName))
+        // console.log('The company name is %s', user.clientID);
+        // console.log('The company id %s', user.clientID._id);
+      });
+
+    return userData.map( async (user) => {
       const newUser = await User.create({
         _id: new mongoose.Types.ObjectId(),
         email: user.email,
         password: user.password,
         role: user.role,
+        clientID: coderAcademy._id
       })
-      // Client.employees.push(newUser._id)
+      console.log(newUser);
+      addEmployee(newUser._id, newUser.clientID)
+      // seededClient.employees.push(newUser)
       // console.log({message: 'Seeded Student User', result: newUser});
     })
   } catch(err) { console.log(err.message, err.stack) }
+}
+
+const addEmployee = (userID, clientID) => {
+  Client.update({
+    _id: clientID
+  }, {
+    $push: {
+        employees: userID
+    }
+  }).exec((err, client) => {
+    if (err) { console.log(err) }
+    console.log(`${userID} has been added to the list of ${clientID} employees`);
+  })
 }
 
 const seedDatabase = async (req, res) => {
@@ -65,11 +81,10 @@ const seedDatabase = async (req, res) => {
     await Resource.deleteMany()
 
     console.log('Starting Database Seed...');  
-  
     try {
-      await seedClients()
-      const clients = await Client.find()
-      await console.log(clients);
+      const clientPromises = await seedClients()
+      const clients = await Promise.all(clientPromises)
+      seedUsers()
     } catch(err) { res.send(err) }
 
   } catch(err) { return res.send(err) }
