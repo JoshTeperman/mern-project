@@ -6,7 +6,6 @@ require('./Resource')
 const projectSchema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    required: true
   },
   name: {
     type: String,
