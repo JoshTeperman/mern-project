@@ -1,9 +1,5 @@
 const express = require('express')
 const router = express.Router();
-const cors = require('cors')
-
-router.use(express.json())
-router.use(cors())
 
 router.use('/', require('./public-routes'))
 router.use('/auth', require('./protected-routes/auth-routes'))

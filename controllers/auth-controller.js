@@ -17,7 +17,7 @@ const login = async (req, res) => {
         if (result) {
           const token = await generateToken(foundUser)
           return res.send({ 
-            user:foundUser,
+            user: foundUser,
             token: token 
           })
         } else {

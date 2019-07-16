@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --recursive --bail --timeout 2000",
     "start": "nodemon start"
   },
   "keywords": [],
@@ -15,11 +15,15 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.6.4"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
-    "now": "^15.7.0"
+    "now": "^15.7.0",
+    "sinon": "^7.3.2"
   }
 }
