@@ -1,14 +1,16 @@
 const mongoose = require('mongoose')
 const { User } = require('../models/User')
-const Program = require('../models/Program')
+const { Program } = require('../models/Program')
 const { Client } = require('../models/Client')
-const Project = require('../models/Project')
-const Resource = require('../models/Resource')
+const { Project } = require('../models/Project')
+const { Resource } = require('../models/Resource')
 
-const { userData, programData, clientData, projectData, resourceData } = require('./seedData')
+const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
 const { createUser } = require('./User-utils')
 const { addEmployee, createClient } = require('./Client-utils')
 const { createProgram } = require('./Program-utils')
+const { createResource } = require('./Resource-utils')
+const { createProject } = require('./Project-utils')
 
 
 const seedClients = async () => {
@@ -53,6 +55,30 @@ const seedPrograms = () => {
   }
 }
 
+const seedProjects = () => {
+  try {
+    projectOneData.map( async (project) => {
+      return createProject(project)
+    })
+    projectTwoData.map( async (project) => {
+      return createProject(project)
+    })
+
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+const seedResources = () => {
+  try {
+    resourceData.map( async (resource) => {
+      return createResource(resource)
+    })
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 const seedDatabase = async (req, res) => {
   console.log('Destroying Data...')
   try {
@@ -73,6 +99,14 @@ const seedDatabase = async (req, res) => {
 
       console.log('Seeding Programs ...');
       seedPrograms()
+
+      console.log('Seeding Projects ...');
+      seedProjects()
+
+      console.log('Seeding Resources ...');
+      seedResources()
+
+
     } catch(err) { res.send(err) }
 
   } catch(err) { return res.send(err) }

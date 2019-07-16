@@ -1,7 +1,15 @@
-const Program = require('../models/Program')
+const { Program, validateProgram } = require('../models/Program')
 const mongoose = require('mongoose')
 
 const createProgram = async (programObject) => {
+  const { error } = validateProgram(programObject)
+  if (error) {
+    return { error: {
+      name: error.name,
+      message: error.message,
+      status: 400
+    }}
+  }
   try {
     const newProgram = await Program.create({
       name: programObject.name,

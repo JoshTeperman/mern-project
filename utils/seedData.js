@@ -62,7 +62,7 @@ programData = [
   }
 ]
 
-projectData = [
+projectOneData = [
   {
     name: 'First fabulous and teriffic project',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni excepturi vitae harum ad est id at facere neque, natus quibusdam porro possimus hic optio odio rerum nesciunt consequatur consequuntur nihil.',
@@ -90,7 +90,10 @@ projectData = [
     category: 'online marketing',
     startDate: date,
     endDate: new Date(year, month + 12, day),
-  },
+  }
+]
+
+const projectTwoData = [
   {
     name: 'First Incredible Fantasy Trumpernickle Project',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni excepturi vitae harum ad est id at facere neque, natus quibusdam porro possimus hic optio odio rerum nesciunt consequatur consequuntur nihil.',
@@ -119,7 +122,7 @@ projectData = [
     startDate: date,
     endDate: new Date(year, month + 12, day),
   },
-]
+] 
 
 resourceData = [
   {
@@ -164,10 +167,12 @@ resourceData = [
   }
 ]
 
+
 module.exports = {
   clientData,
   userData,
   programData,
-  projectData,
+  projectOneData,
+  projectTwoData,
   resourceData
 }

@@ -1,7 +1,7 @@
 const { generateUser, generateToken } = require('../utils/auth-utils')
 const { User } = require('../models/User')
 const { Client } = require('../models/Client')
-const Program = require('../models/Program')
+const { Program } = require('../models/Program')
 const Project = require('../models/Project')
 const Resource = require('../models/Resource')
 
