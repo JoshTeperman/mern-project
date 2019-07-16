@@ -1,13 +1,23 @@
 const { Client, validateClient } = require('../models/Client')
 
-const addEmployeeToClient = (clientID, userID) => {
+const assignEmployeeToClient = (clientID, userID) => {
   Client.updateOne({ 
     _id: clientID 
   }, { $push: { employees: userID }
-  }).exec((err, client) => {
+  }).exec((err) => {
     if (err) { console.log(err) }
-    console.log(`User: ${userID} has been added to the list of ${clientID} employees`);
+    console.log(`User: ${userID} has been added to Client: ${clientID} employees`);
   })
+}
+
+const assignProgramtoClient = (clientID, programID) => {
+  Client.updateOne({
+    _id: clientID
+  }, { $push: { programs: programID }
+}).exec((err) => {
+  if (err) { console.log(err) }
+  console.log(`Program: ${programID} has been added to Client: ${clientID} programs`)
+})
 }
 
 const createClient = async (clientObject) => {
@@ -31,6 +41,7 @@ const createClient = async (clientObject) => {
 }
 
 module.exports = {
-  addEmployeeToClient,
+  assignEmployeeToClient,
+  assignProgramtoClient,
   createClient
 }

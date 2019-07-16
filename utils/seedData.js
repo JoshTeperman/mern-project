@@ -59,6 +59,34 @@ programData = [
     category: 'email marketing',
     startDate: date,
     endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'absolutely fabulous',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Seinfeld',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Curb Your Enthusiasm',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Willy Wonka and the Chocolate Factory',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
   }
 ]
 

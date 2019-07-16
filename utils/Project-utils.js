@@ -12,14 +12,13 @@ const createProject = async (projectObject) => {
     }}
   } else {
     try {
-      const newProject = await Project.create({
+      return newProject = await Project.create({
         name: projectObject.name,
         description: projectObject.description,
         category: projectObject.category,
         startDate: projectObject.startDate,
         endDate: projectObject.endDate
       })
-      console.log(`created New Project: ${newProject.name}`);
     } catch(err) {
       console.log(err.message)
     }

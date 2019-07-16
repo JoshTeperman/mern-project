@@ -26,6 +26,17 @@ const createProgram = async (programObject) => {
   }
 }
 
+const assignProjectToProgram = async (programID, projectID) => {
+  Program.updateOne({
+    _id: programID
+  }, { $push: { projects: projectID}
+  }).exec((err) => {
+    if (err) { console.log(err) }
+    console.log(`Project: ${projectID} has been added Program: ${programID} projects`);
+  })
+}
+
 module.exports = {
-  createProgram
+  createProgram,
+  assignProjectToProgram
 }
