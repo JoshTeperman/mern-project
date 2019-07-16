@@ -10,6 +10,17 @@ const addEmployee = (userID, clientID) => {
   })
 }
 
+const createClient = async (clientObject) => {
+  try {
+    await Client.create({
+      companyName: clientObject.companyName,
+    })
+  } catch(err) {
+    console.log(err.message);
+  }
+}
+
 module.exports = {
-  addEmployee
+  addEmployee,
+  createClient
 }

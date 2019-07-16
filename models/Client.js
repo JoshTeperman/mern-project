@@ -4,9 +4,6 @@ require('./User')
 require('./Program')
 
 const clientSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-  },
   companyName: {
     type: String,
   },

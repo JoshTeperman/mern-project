@@ -7,17 +7,14 @@ const Resource = require('../models/Resource')
 
 const { userData, programData, clientData, projectData, resourceData } = require('./seedData')
 const { createUser } = require('./User-utils')
-const { addEmployee } = require('./Client-utils')
+const { addEmployee, createClient } = require('./Client-utils')
 const { createProgram } = require('./Program-utils')
 
 
 const seedClients = async () => {
   try {
     return clientData.map(async (companyName) => {
-      const newClient = await Client.create({
-        _id: new mongoose.Types.ObjectId(),
-        companyName: companyName,
-      })
+      const newClient = await createClient({ companyName: companyName })
       return newClient
     })
   } catch(err) { console.log(err) }
