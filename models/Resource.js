@@ -6,22 +6,18 @@ require('./Program')
 const resourceSchema = new Schema({
   name: {
     type: String,
-    required: true
   },
   description: {
     type: String,
-    required: true
   },
   type: {
     type: String,
-    required: true,
     default: 'url',
     enum: ['pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other']
   },
   project: {
     type: Schema.Types.ObjectId,
     ref: 'Project',
-    required: true
   },
   content: [],
   completed: {
@@ -39,7 +35,8 @@ const validateResource = (resource) => {
     description: Joi.string()
       .required(),
     type: Joi.string()
-      .valid('pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other'),
+      .valid('pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other')
+      .required(),
     project: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
     content: Joi.array().items(Joi.string(), Joi.object())

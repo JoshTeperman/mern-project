@@ -8,20 +8,16 @@ require('./Project')
 const programSchema = new Schema({
   name: {
     type: String,
-    required: true
   },
   description: {
     type: String,
-    required: true
   },
   category: {
     type: String,
-    required: true
   },
   clientID: {
     type: Schema.Types.ObjectId,
     ref: 'Client',
-    require: true
   },
   startDate: {
     type: Date,

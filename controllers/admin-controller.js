@@ -2,8 +2,8 @@ const { generateUser, generateToken } = require('../utils/auth-utils')
 const { User } = require('../models/User')
 const { Client } = require('../models/Client')
 const { Program } = require('../models/Program')
-const Project = require('../models/Project')
-const Resource = require('../models/Resource')
+const { Project } = require('../models/Project')
+const { Resource } = require('../models/Resource')
 
 const register = async (req, res) => {
   const { email, password, role, company, status } = req.body
@@ -82,7 +82,7 @@ const getProjects = async (req, res) => {
       return res.json({ message: 'No projects' })      
     } 
     return res.json({ projects: projects })
-  } catch(err) {
+  } catch(err) {  
     console.log(err.stack);
     return res.json({ 
       error: { message: 'an error occured', status: 404 }

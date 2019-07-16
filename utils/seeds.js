@@ -6,14 +6,15 @@ const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
 const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
-const { createUser } = require('./User-utils')
-const { addEmployee, createClient } = require('./Client-utils')
+const { createUser, assignProgramToUser } = require('./User-utils')
+const { createClient, addEmployeeToClient } = require('./Client-utils')
 const { createProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject } = require('./Project-utils')
 
 
 const seedClients = async () => {
+  console.log('Seeding Clients');
   try {
     return clientData.map(async (companyName) => {
       const newClient = await createClient({ companyName: companyName })
@@ -22,33 +23,12 @@ const seedClients = async () => {
   } catch(err) { console.log(err) }
 }
 
-const seedUsers = async () =>  {
-  // using CoderAcadmy as test company to add employees to for now
-  const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
-
-  try {
-    console.log('Seeding Super Admin ...');
-    // refactor using createUser() method-->
-    const superAdminUser = {
-      email: 'superadmin@admin.com',
-      password: 'password',
-      role: 'superadmin',
-    }
-    await createUser(superAdminUser, coderAcademy._id)
-
-    console.log('Seeding Student Users from Client: Coder Academy ...');
-    return userData.map( async (userObject) => {
-      const newUser = await createUser(userObject, coderAcademy._id)
-      // add user to Coder Academy employees
-      addEmployee(newUser._id, newUser.clientID)
-    })
-  } catch(err) { console.log(err.message, err.stack) }
-}
 
 const seedPrograms = () => {
+  console.log('Seeding Programs');
   try {
     programData.map( async (program) => {
-      return createProgram(program)
+      createProgram(program)
     })
   } catch(err) {
     console.log(err)
@@ -56,6 +36,7 @@ const seedPrograms = () => {
 }
 
 const seedProjects = () => {
+  console.log('Seeding Projects');
   try {
     projectOneData.map( async (project) => {
       return createProject(project)
@@ -63,13 +44,14 @@ const seedProjects = () => {
     projectTwoData.map( async (project) => {
       return createProject(project)
     })
-
+    
   } catch(err) {
     console.log(err)
   }
 }
 
 const seedResources = () => {
+  console.log('Seeding Resources');
   try {
     resourceData.map( async (resource) => {
       return createResource(resource)
@@ -77,6 +59,32 @@ const seedResources = () => {
   } catch(err) {
     console.log(err)
   }
+}
+
+const seedUsers = async () =>  {
+  console.log('Seeding Users');
+  // using CoderAcadmy as test company to add employees to for now
+  const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
+  const testProgram = await Program.findOne({ name: 'test program' })
+
+  try {
+    // Seeding Super Admin User
+    const superAdminUser = {
+      email: 'superadmin@admin.com',
+      password: 'password',
+      role: 'superadmin',
+    }
+    await createUser(superAdminUser, coderAcademy._id)
+
+    // Seeding Student Users
+    userData.map( async (userObject) => {
+      const newUser = await createUser(userObject, coderAcademy._id)
+      // Assigning Client
+      addEmployeeToClient(newUser.clientID, newUser._id)
+      // Assigning Program
+      assignProgramToUser(newUser._id, testProgram._id)
+    })
+  } catch(err) { console.log(err.message, err.stack) }
 }
 
 const seedDatabase = async (req, res) => {
@@ -90,25 +98,19 @@ const seedDatabase = async (req, res) => {
 
     console.log('Starting Database Seed...');  
     try {
-      console.log('Seeding Clients');
+      // Seeding Clients
       const clientPromises = await seedClients()
       const clients = await Promise.all(clientPromises)
-      
-      console.log('Seeding Users ...');
-      seedUsers()
-
-      console.log('Seeding Programs ...');
+      // Seeding Programs
       seedPrograms()
-
-      console.log('Seeding Projects ...');
+      // Seeding Projects
       seedProjects()
-
-      console.log('Seeding Resources ...');
+      // Seeding Resources
       seedResources()
-
-
+      // Seeding Users
+      seedUsers()
     } catch(err) { res.send(err) }
-
+    
   } catch(err) { return res.send(err) }
   return res.json({ message: 'Finished Seeding Database' })
 }

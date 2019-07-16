@@ -4,21 +4,23 @@ const mongoose = require('mongoose')
 const createResource = async (resourceObject) => {
   const { error } = validateResource(resourceObject)
   if (error) {
+    console.log(error.message);
     return { error: {
       name: error.name,
       message: error.message,
       status: 400
     }}
-  }
-  try {
-    const newResource = await Resource.create({
-      name: resourceObject.name,
-      description: resourceObject.description,
-      type: resourceObject.type
-    })
-    console.log(`created New Resource: ${newResource.name}`);
-  } catch(err) {
-    console.log(err.message)
+  } else {
+    try {
+      const newResource = await Resource.create({
+        name: resourceObject.name,
+        description: resourceObject.description,
+        type: resourceObject.type
+      })
+      console.log(`created New Resource: ${newResource.name}`);
+    } catch(err) {
+      console.log(err.message)
+    }
   }
 }
 

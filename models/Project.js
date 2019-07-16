@@ -7,15 +7,12 @@ require('./Resource')
 const projectSchema = new Schema({
   name: {
     type: String,
-    required: true
   },
   description: {
     type: String,
-    required: true
   },
   category: {
     type: String,
-    required: true
   },
   startDate: {
     type: Date,
@@ -26,7 +23,6 @@ const projectSchema = new Schema({
   program: {
     type: Schema.Types.ObjectId,
     ref: 'Program',
-    required: true
   },
   resources: [{
     type: Schema.Types.ObjectId,
@@ -48,10 +44,8 @@ const validateProject = (project) => {
       .required(),
     category: Joi.string()
       .required(),
-    startDate: Joi.date()
-      .required(),
-    endDate: Joi.date()
-      .required(),
+    startDate: Joi.date(),
+    endDate: Joi.date(),
     program: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
     resources: Joi.array().items(Joi.string()

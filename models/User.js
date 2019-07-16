@@ -6,15 +6,12 @@ require('./Client')
 const userSchema = new Schema({
   email: {
     type: String,
-    required: true
   },
   password: {
     type: String,
-    required: true,
   },
   role: {
     type: String,
-    required: true,
     default: 'student',
     enum: ['admin', 'superadmin', 'student', 'manager']
   },
