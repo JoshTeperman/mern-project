@@ -1,23 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Joi = require('joi')
 require('./Program')
 require('./Resource')
 
 const projectSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-  },
   name: {
     type: String,
-    required: true
   },
   description: {
     type: String,
-    required: true
   },
   category: {
     type: String,
-    required: true
   },
   startDate: {
     type: Date,
@@ -27,9 +22,7 @@ const projectSchema = new Schema({
   },
   program: {
     type: Schema.Types.ObjectId,
-    ref: 'Program'
-    ,
-    required: true
+    ref: 'Program',
   },
   resources: [{
     type: Schema.Types.ObjectId,
@@ -43,4 +36,25 @@ const projectSchema = new Schema({
 
 const Project = mongoose.model('Project', projectSchema)
 
-module.exports = Project
+const validateProject = (project) => {
+  const schema = new Joi.object({
+    name: Joi.string()
+      .required(),
+    description: Joi.string()
+      .required(),
+    category: Joi.string()
+      .required(),
+    startDate: Joi.date(),
+    endDate: Joi.date(),
+    program: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
+    resources: Joi.array().items(Joi.string()
+      .regex(/[0-9a-fA-F]{24}/)),
+  })
+  return Joi.validate(project, schema)
+}
+
+module.exports = {
+  Project,
+  validateProject
+}

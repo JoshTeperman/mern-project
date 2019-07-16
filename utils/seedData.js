@@ -59,10 +59,38 @@ programData = [
     category: 'email marketing',
     startDate: date,
     endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'absolutely fabulous',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Seinfeld',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Curb Your Enthusiasm',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
+  },
+  {
+    name: 'Willy Wonka and the Chocolate Factory',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores earum commodi, aut quaerat, explicabo odit sapiente maiores corrupti quasi cupiditate, id inventore distinctio? Ad illo eligendi rerum facere nostrum porro.',
+    category: 'email marketing',
+    startDate: date,
+    endDate: new Date(year + 1, month, day),
   }
 ]
 
-projectData = [
+projectOneData = [
   {
     name: 'First fabulous and teriffic project',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni excepturi vitae harum ad est id at facere neque, natus quibusdam porro possimus hic optio odio rerum nesciunt consequatur consequuntur nihil.',
@@ -90,7 +118,10 @@ projectData = [
     category: 'online marketing',
     startDate: date,
     endDate: new Date(year, month + 12, day),
-  },
+  }
+]
+
+const projectTwoData = [
   {
     name: 'First Incredible Fantasy Trumpernickle Project',
     description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni excepturi vitae harum ad est id at facere neque, natus quibusdam porro possimus hic optio odio rerum nesciunt consequatur consequuntur nihil.',
@@ -119,7 +150,7 @@ projectData = [
     startDate: date,
     endDate: new Date(year, month + 12, day),
   },
-]
+] 
 
 resourceData = [
   {
@@ -164,10 +195,12 @@ resourceData = [
   }
 ]
 
+
 module.exports = {
   clientData,
   userData,
   programData,
-  projectData,
+  projectOneData,
+  projectTwoData,
   resourceData
 }

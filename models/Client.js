@@ -27,17 +27,21 @@ const Client = mongoose.model('Client', clientSchema)
 const validateClient = (client) => {
   const schema = Joi.object().keys({
     companyName: Joi.string()
-      .regex(/[0-9a-zA-Z]/, "Company name is invalid")
+      .regex(/[0-9a-zA-Z]/)
       .required(),
-    //author = Joi.objectID(),
-    // Keep length minimum to reduce low value comments.
-    text: Joi.string()
-      .min(50)
-      .required()
+    clientRepresentative: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
+    employees: Joi.array().items(Joi.string()
+      .regex(/[0-9a-fA-F]{24}/)),
+    programs: Joi.array().items(Joi.string()
+      .regex(/[0-9a-fA-F]{24}/))
   });
-  return Joi.validate(comment, schema);
+  return Joi.validate(client, schema);
 };
 
 
 
-module.exports = Client
+module.exports = {
+  Client,
+  validateClient
+}
