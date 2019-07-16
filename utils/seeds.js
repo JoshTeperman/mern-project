@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const User = require('../models/User')
+const { User } = require('../models/User')
 const Program = require('../models/Program')
-const Client = require('../models/Client')
+const { Client } = require('../models/Client')
 const Project = require('../models/Project')
 const Resource = require('../models/Resource')
 
@@ -28,7 +28,6 @@ const seedUsers = async () =>  {
     console.log('Seeding Super Admin ...');
     // refactor using createUser() method-->
     const superAdminUser = {
-      _id: new mongoose.Types.ObjectId(),
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',

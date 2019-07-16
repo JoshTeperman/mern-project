@@ -5,10 +5,6 @@ require('./Client')
 require('./Project')
 
 const programSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    required: true
-  },
   name: {
     type: String,
     required: true

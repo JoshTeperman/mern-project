@@ -1,10 +1,18 @@
 const mongoose = require('mongoose')
-const User = require('../models/User')
+const { User, validateUser } = require('../models/User')
 
 const createUser = async (userObject, clientID) => {
+  const { error } = validateUser(userObject)
+
+  if (error) {
+    return { error: {
+      name: error.name,
+      message: error.message,
+      status: 400
+    }}
+  }
   try {
     return await User.create({
-      _id: new mongoose.Types.ObjectId(),
       email: userObject.email,
       password: userObject.password,
       role: userObject.role,

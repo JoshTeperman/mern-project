@@ -1,11 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+const Joi = require('joi')
 require('./Client')
 
 const userSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-  },
   email: {
     type: String,
     required: true
@@ -33,4 +31,27 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = User
+const validateUser = (user) => {
+  const schema = Joi.object().keys({
+    email: Joi.string()
+      .email({ minDomainSegments: 2 })
+      .required(),
+    password: Joi.string()
+      .min(4)
+      .required(),
+    role: Joi.string()
+    .valid('admin', 'superadmin', 'student', 'manager')
+    .required(),
+    clientID: Joi.string()
+    .regex(/[0-9a-fA-F]{24}/),
+    programs: Joi.array().items(Joi.string()
+      .regex(/[0-9a-fA-F]{24}/))
+  });
+  return Joi.validate(user, schema);
+};
+
+
+module.exports = { 
+  User,
+  validateUser
+}

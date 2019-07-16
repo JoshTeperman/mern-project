@@ -1,4 +1,4 @@
-const Client = require('../models/Client')
+const { Client, validateClient } = require('../models/Client')
 
 const addEmployee = (userID, clientID) => {
   Client.updateOne({ 
@@ -11,6 +11,14 @@ const addEmployee = (userID, clientID) => {
 }
 
 const createClient = async (clientObject) => {
+  const { error } = validateClient(clientObject)
+  if (error) {
+    return { error: {
+      name: error.name,
+      message: error.message,
+      status: 400
+    }}
+  }
   try {
     await Client.create({
       companyName: clientObject.companyName,

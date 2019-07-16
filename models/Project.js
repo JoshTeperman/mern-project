@@ -4,9 +4,6 @@ require('./Program')
 require('./Resource')
 
 const projectSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-  },
   name: {
     type: String,
     required: true
