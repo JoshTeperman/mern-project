@@ -1,7 +1,7 @@
 const assert = require('assert')
 const Client = require('../../models/Client')
 
-describe('Client Model validation', () => {
+describe('Client', () => {
   it('creates without any errors', async () => {
     const client = new Client({ companyName: 'Test Client'})
     
