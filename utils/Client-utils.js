@@ -1,7 +1,7 @@
 const { Client, validateClient } = require('../models/Client')
 const { User } = require('../models/User')
 
-const assignEmployeeToClient = (clientID, userID) => {
+const assignEmployeeToClient = (clientID, userID) => {  
   Client.updateOne({ 
     _id: clientID 
   }, { $push: { employees: userID }
@@ -17,7 +17,7 @@ const assignEmployeeToClient = (clientID, userID) => {
   })
 }
 
-const assignProgramtoClient = (clientID, programID) => {
+const assignProgramToClient = (clientID, programID) => {
   Client.updateOne({
     _id: clientID
   }, { $push: { programs: programID }
@@ -37,7 +37,7 @@ const createClient = async (clientObject) => {
     }}
   } else {
     try {
-      await Client.create({
+      return await Client.create({
         companyName: clientObject.companyName,
       })
     } catch(err) {
@@ -48,6 +48,6 @@ const createClient = async (clientObject) => {
 
 module.exports = {
   assignEmployeeToClient,
-  assignProgramtoClient,
+  assignProgramToClient,
   createClient
 }

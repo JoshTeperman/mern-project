@@ -7,7 +7,7 @@ const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
 const { createUser, assignProgramToUser } = require('./User-utils')
-const { createClient, assignEmployeeToClient, assignProgramtoClient } = require('./Client-utils')
+const { createClient, assignEmployeeToClient, assignProgramToClient } = require('./Client-utils')
 const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject, assignResourceToProject } = require('./Project-utils')
@@ -30,10 +30,10 @@ const seedPrograms = () => {
       const programPromises = programData.map( async (program, index) => {
         const newProgram = await createProgram(program)
         const client = clients[index]
-        assignProgramtoClient(client._id, newProgram._id)
+        assignProgramToClient(client._id, newProgram._id)
         return newProgram
       })
-      const newPrograms = await Promise.all(programPromises)
+      await Promise.all(programPromises)
       resolve()
     } catch(err) {
       reject(err)
