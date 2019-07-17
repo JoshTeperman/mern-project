@@ -1,4 +1,5 @@
 const { Program, validateProgram } = require('../models/Program')
+const { Project } = require('../models/Project')
 const mongoose = require('mongoose')
 
 const createProgram = async (programObject) => {
@@ -31,8 +32,17 @@ const assignProjectToProgram = async (programID, projectID) => {
   }, { $push: { projects: projectID}
   }).exec((err) => {
     if (err) { console.log(err) }
-    console.log(`Project: ${projectID} has been added Program: ${programID} projects`);
+    // console.log(`Project: ${projectID} has been added Program: ${programID} projects`);
+    Project.updateOne({
+      _id: projectID
+    }, { $set: { program: programID }
+    }).exec((err, result) => {
+      if (err) { console.log(err) }
+      console.log(result);
+      console.log(`updated Project programID`);
+    })
   })
+  
 }
 
 module.exports = {

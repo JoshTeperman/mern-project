@@ -69,6 +69,7 @@ const seedProjects = async () => {
       const newProject = await createProject(project)
       programs.slice(0, 3).forEach(program => {
         assignProjectToProgram(program._id, newProject._id)
+        // perhaps add programID to project at this point?
       })
     })
     projectTwoData.map( async (project) => {
