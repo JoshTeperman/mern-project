@@ -1,16 +1,16 @@
+const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
+
 const { User } = require('../models/User')
 const { Program } = require('../models/Program')
 const { Client } = require('../models/Client')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
-const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
 const { createUser, assignProgramToUser } = require('./User-utils')
 const { createClient, assignEmployeeToClient, assignProgramtoClient } = require('./Client-utils')
 const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject, assignResourceToProject } = require('./Project-utils')
-
 
 const seedClients = async () => {
   console.log('Seeding Clients');
@@ -73,9 +73,7 @@ const seedResources = async () => {
     resourceData.map( async (resourceObject) => {
       const newResource = await createResource(resourceObject)
       projects.forEach(project => {
-        console.log(newResource);
         assignResourceToProject(project._id, newResource._id)
-        // console.log(project.resources);
       })
     })
   } catch(err) {
@@ -94,7 +92,7 @@ const seedUsers = async () =>  {
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',
-      clientID: coderAcademy._id
+      clientID: coderAcademy._id.toString()
     }
     await createUser(superAdminUser)
 
@@ -120,14 +118,13 @@ const seedDatabase = async (req, res) => {
     try {
       // Seeding Clients
       const clientPromises = await seedClients()
-      const clients = await Promise.all(clientPromises)
+      await Promise.all(clientPromises)
       // Seeding Programs
       seedPrograms()
         .then(() => {
           // Seeding Projects & adding Projects to Programs
           seedProjects()
-            .then((projects) => {
-              // console.log(projects);
+            .then(() => {
               // Seeding Resources & adding Resources to Projects
               seedResources()
             })

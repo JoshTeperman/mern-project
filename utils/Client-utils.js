@@ -7,8 +7,6 @@ const assignEmployeeToClient = (clientID, userID) => {
   }, { $push: { employees: userID }
   }).exec((err) => {
     if (err) { console.log(err) }
-    console.log(`User: ${userID} has been added to Client: ${clientID} employees`);
-
     User.updateOne({
       _id: userID
     }, { $set: { clientID: clientID }
@@ -25,7 +23,6 @@ const assignProgramtoClient = (clientID, programID) => {
   }, { $push: { programs: programID }
 }).exec((err) => {
   if (err) { console.log(err) }
-  console.log(`Program: ${programID} has been added to Client: ${clientID} programs`)
 })
 }
 

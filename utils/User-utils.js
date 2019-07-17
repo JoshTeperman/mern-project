@@ -33,7 +33,6 @@ const assignProgramToUser = (userID, programID) => {
   }, { $push: { programs: programID }
   }).exec((err) => {
     if (err) { console.log(err) }
-    console.log(`Program: ${programID} has been added User ${userID} programs`);
   })
 }
 
