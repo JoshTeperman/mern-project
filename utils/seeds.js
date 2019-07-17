@@ -25,7 +25,7 @@ const seedClients = async () => {
 
 
 const seedPrograms = async () => {
-  new Promise((resolve, reject) => {
+  new Promise( async(resolve, reject) => {
     const clients = await Client.find()
     console.log('Seeding Programs');
     try {
@@ -34,7 +34,7 @@ const seedPrograms = async () => {
         const client = clients[index]
         assignProgramtoClient(client._id, newProgram._id)
       })
-      resolve('test')
+      resolve()
     } catch(err) {
       console.log(err)
       reject(err)
@@ -42,13 +42,28 @@ const seedPrograms = async () => {
   })
 }
 
+// const seedPrograms = () => {
+//   return new Promise((resolve, reject) => {
+//     Client.find()
+//     .then(async (clients) => {
+//       const programPromises = programData.map(async (program, index) => {
+//         const newProgram = await createProgram(program)
+//         const client = clients[index]
+//         assignProgramtoClient(client._id, newProgram._id)
+//         return newProgram
+//       })
+//       const programDocuments = await Promise.all(programPromises)
+//       resolve(programDocuments)
+//     })
+//   }
+// )
+// }
+
 const seedProjects = async () => {
   console.log('Seeding Projects');
-  const clients = await Client.find()
   const programs = await Program.find()
   try {
     projectOneData.map( async (project) => {
-      // console.log(`test: ${clients}`)
       // console.log(`test: ${programs}`)
       const newProject = createProject(project)
       programs.slice(0, 2).forEach(program => {
@@ -118,7 +133,7 @@ const seedDatabase = async (req, res) => {
       // Seeding Programs
       await seedPrograms()
       // Seeding Projects
-      seedProjects()
+      await seedProjects()
       // Seeding Resources
       seedResources()
       // Seeding Users

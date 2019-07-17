@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const { User } = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -7,7 +7,7 @@ const generateHashedPassword = async (password) => {
   return await bcrypt.hash(password, saltRounds);
 }
 
-const generateUser = async (email, password, role, company, status) => {
+const generateUser = async (email, password, role, status, clientID) => {
   console.log('generating user');
   const hash = await generateHashedPassword(password);
   console.log(hash);
@@ -15,8 +15,8 @@ const generateUser = async (email, password, role, company, status) => {
     email: email,
     password: hash,
     role: role,
-    company: company,
-    status: status
+    status: status,
+    clientID: clientID
   })
   return await newUser.save()
 }
