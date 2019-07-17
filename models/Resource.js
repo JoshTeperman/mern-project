@@ -15,7 +15,7 @@ const resourceSchema = new Schema({
     default: 'url',
     enum: ['pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other']
   },
-  project: {
+  projectID: {
     type: Schema.Types.ObjectId,
     ref: 'Project',
   },
@@ -37,7 +37,7 @@ const validateResource = (resource) => {
     type: Joi.string()
       .valid('pdf', 'doc/docx', 'image', 'url', 'video', 'text', 'powerpoint', 'embedded', 'other')
       .required(),
-    project: Joi.string()
+    projectID: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
     content: Joi.array().items(Joi.string(), Joi.object())
   })

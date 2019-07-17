@@ -38,8 +38,7 @@ const assignProjectToProgram = async (programID, projectID) => {
       if (err) { console.log(err) }
       console.log(`updated Project programID`);
     })
-  })
-  
+  }) 
 }
 
 module.exports = {
