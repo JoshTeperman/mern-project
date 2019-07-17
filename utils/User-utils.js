@@ -1,13 +1,5 @@
-const mongoose = require('mongoose')
 const { User, validateUser } = require('../models/User')
 const { generateHashedPassword } = require('./auth-utils')
-
-// const seedUser = async (userObject, clientID) => {
-  
-  
-//       return await generateUser(userObject.email, userObject.password, userObject.role, userObject.status, clientID)
-    
-// }
 
 const createUser = async (userObject) => {
   const { error } = validateUser(userObject)

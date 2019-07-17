@@ -1,5 +1,4 @@
 const { Resource, validateResource } = require('../models/Resource')
-const mongoose = require('mongoose')
 
 const createResource = async (resourceObject) => {
   const { error } = validateResource(resourceObject)

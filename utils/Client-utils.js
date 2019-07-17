@@ -1,4 +1,5 @@
 const { Client, validateClient } = require('../models/Client')
+const { User } = require('../models/User')
 
 const assignEmployeeToClient = (clientID, userID) => {
   Client.updateOne({ 
@@ -7,6 +8,14 @@ const assignEmployeeToClient = (clientID, userID) => {
   }).exec((err) => {
     if (err) { console.log(err) }
     console.log(`User: ${userID} has been added to Client: ${clientID} employees`);
+
+    User.updateOne({
+      _id: userID
+    }, { $set: { clientID: clientID }
+    }).exec((err) => {
+      if (err) { console.log(err) }
+      console.log(`updated user clientID`);
+    })
   })
 }
 

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const { User } = require('../models/User')
 const { Program } = require('../models/Program')
 const { Client } = require('../models/Client')
@@ -23,25 +22,6 @@ const seedClients = async () => {
   } catch(err) { console.log(err) }
 }
 
-
-// const seedPrograms = async () => {
-//   new Promise( async(resolve, reject) => {
-//     const clients = await Client.find()
-//     console.log('Seeding Programs');
-//     try {
-//       programData.map( async (program, index) => {
-//         const newProgram = await createProgram(program)
-//         const client = clients[index]
-//         assignProgramtoClient(client._id, newProgram._id)
-//       })
-//       resolve()
-//     } catch(err) {
-//       console.log(err)
-//       reject(err)
-//     }
-//   })
-// }
-
 const seedPrograms = () => {
   return new Promise( async (resolve, reject) => {
     try {
@@ -53,7 +33,6 @@ const seedPrograms = () => {
         return newProgram
       })
       const newPrograms = await Promise.all(programPromises)
-      // console.log(newPrograms);
       resolve(newPrograms)
     } catch(err) {
       reject(err)
@@ -69,7 +48,6 @@ const seedProjects = async () => {
       const newProject = await createProject(project)
       programs.slice(0, 3).forEach(program => {
         assignProjectToProgram(program._id, newProject._id)
-        // perhaps add programID to project at this point?
       })
     })
     projectTwoData.map( async (project) => {
@@ -97,7 +75,6 @@ const seedResources = () => {
 
 const seedUsers = async () =>  {
   console.log('Seeding Users');
-  // using CoderAcadmy as test company to add employees to for now
   const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
   const program = await Program.findOne({ name: 'test program' })
 
@@ -107,18 +84,14 @@ const seedUsers = async () =>  {
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',
-      clientID: coderAcademy._id.toString()
+      clientID: coderAcademy._id
     }
     await createUser(superAdminUser)
 
     // Seeding Student Users
     userData.map( async (userObject) => {
-      userObject.clientID = coderAcademy._id.toString()
-      // Creating new User with CoderAcademy ClientID
       const newUser = await createUser(userObject)
-      // Assigning User to Client
-      assignEmployeeToClient(newUser.clientID, newUser._id)
-      // Assigning Program
+      assignEmployeeToClient(coderAcademy._id, newUser._id)
       assignProgramToUser(newUser._id, program._id)
     })
   } catch(err) { console.log(err.message, err.stack) }
