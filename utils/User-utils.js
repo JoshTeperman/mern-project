@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const { User, validateUser } = require('../models/User')
+const { generateUser } = require('./auth-utils')
 
 const createUser = async (userObject, clientID) => {
   const { error } = validateUser(userObject)
-
   if (error) {
     console.log(error.message);
     return { error: {
@@ -13,12 +13,7 @@ const createUser = async (userObject, clientID) => {
     }}
   } else {
     try {
-      return await User.create({
-        email: userObject.email,
-        password: userObject.password,
-        role: userObject.role,
-        clientID: clientID
-      })
+      return await generateUser(userObject.email, userObject.password, userObject.role, userObject.status, clientID)
     } catch(err) {
       console.log(err);
     }

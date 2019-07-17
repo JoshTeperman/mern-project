@@ -1,4 +1,4 @@
-const User = require('../models/User')
+const { User } = require('../models/User')
 
 const { generateToken, checkPassword } = require('../utils/auth-utils')
 
@@ -14,6 +14,7 @@ const login = async (req, res) => {
         })
       } else if (foundUser) {
         const result = await checkPassword(password, foundUser.password)
+        console.log(result);
         if (result) {
           const token = await generateToken(foundUser)
           return res.send({ 
@@ -22,7 +23,7 @@ const login = async (req, res) => {
           })
         } else {
           return res.json({ 
-            error: { message: 'could not authenticate user', status: 403 }
+            error: { message: 'TEST: could not authenticate user', status: 403 }
           })
         }
       }
