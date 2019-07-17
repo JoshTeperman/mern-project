@@ -19,7 +19,6 @@ const createProgram = async (programObject) => {
         startDate: programObject.startDate,
         endDate: programObject.endDate
       })
-      console.log(`created New Program: ${newProgram.name}`);
     } catch(err) {
       console.log(err.message)
     }

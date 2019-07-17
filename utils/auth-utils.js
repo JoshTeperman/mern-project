@@ -7,20 +7,6 @@ const generateHashedPassword = async (password) => {
   return await bcrypt.hash(password, saltRounds);
 }
 
-const generateUser = async (email, password, role, status, clientID) => {
-  console.log('generating user');
-  const hash = await generateHashedPassword(password);
-  console.log(hash);
-  const newUser = await new User({
-    email: email,
-    password: hash,
-    role: role,
-    status: status,
-    clientID: clientID
-  })
-  return await newUser.save()
-}
-
 const generateToken = (email) => {
   return jwt.sign({ email }, process.env.JWT_SECRET, {expiresIn: '7d'});
 }
@@ -30,7 +16,7 @@ const checkPassword = async (password, hashedPassword) => {
 }
 
 module.exports = {
-  generateUser,
   generateToken,
-  checkPassword
+  checkPassword,
+  generateHashedPassword
 }
