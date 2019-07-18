@@ -30,6 +30,8 @@ const Client = mongoose.model('Client', clientSchema)
 
 const validateClient = (client) => {
   const schema = Joi.object().keys({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     companyName: Joi.string()
       .regex(/[0-9a-zA-Z]/)
       .required(),

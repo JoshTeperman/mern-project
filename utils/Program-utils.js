@@ -5,6 +5,7 @@ const createProgram = async (programObject) => {
   const { error } = validateProgram(programObject)
   if (error) {
     console.log(error.message);
+    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,
@@ -13,6 +14,7 @@ const createProgram = async (programObject) => {
   } else {
     try {
       return newProgram = await Program.create({
+        _id: programObject._id,
         name: programObject.name,
         description: programObject.description,
         category: programObject.category,

@@ -5,6 +5,7 @@ const createUser = async (userObject) => {
   const { error } = validateUser(userObject)
   if (error) {
     console.log(error.message);
+    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,
@@ -14,6 +15,7 @@ const createUser = async (userObject) => {
     try {
       const hash = await generateHashedPassword(userObject.password);
       const newUser = await new User({
+        _id: userObject._id,
         email: userObject.email,
         password: hash,
         role: userObject.role,

@@ -37,6 +37,8 @@ const User = mongoose.model('User', userSchema)
 
 const validateUser = (user) => {
   const schema = Joi.object().keys({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     email: Joi.string()
     .email({ minDomainSegments: 2 })
     .required(),

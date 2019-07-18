@@ -2,8 +2,6 @@ const { User } = require('../models/User');
 const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
-const mongoose = require('mongoose');
-console.log(User)
 
 const profile = (req, res) => {
   res.send('user profile endpoint')
@@ -15,8 +13,8 @@ const userStats = (req, res) => {
 
 const fetchProgram = async (req, res) => {
   try {
-    const { id } = req.params
-    const program = await Program.findOne({ _id: id })
+    const { programId } = req.params
+    const program = await Program.findOne({ _id: programId })
     console.log(program)
     res.send(program)
   } catch(err) {

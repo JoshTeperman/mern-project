@@ -21,7 +21,7 @@ router.use(isAuthenticated)
 router.get('/profile', profile)
 router.get('/user-stats', userStats)
 
-router.get('/program/:id', fetchProgram)
+router.get('/program/:programId', fetchProgram)
 router.get('/project/:id', fetchProject)
 router.get('/program/:id/projects', fetchProjects)
 // router.get('/projects', fetchAllProjects) // not in MVP but here for future

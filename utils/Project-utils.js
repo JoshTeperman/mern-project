@@ -5,6 +5,7 @@ const createProject = async (projectObject) => {
   const { error } = validateProject(projectObject)
   if (error) {
     console.log(error.message);
+    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,
@@ -13,6 +14,7 @@ const createProject = async (projectObject) => {
   } else {
     try {
       return newProject = await Project.create({
+        _id: projectObject._id,
         name: projectObject.name,
         description: projectObject.description,
         category: projectObject.category,

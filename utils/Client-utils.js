@@ -29,8 +29,8 @@ const assignProgramToClient = (clientID, programID) => {
 const createClient = async (clientObject) => {
   const { error } = validateClient(clientObject)
   if (error) {
-    // console.log(error.message);
-    console.log(error);
+    console.log(error.message);
+    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,
