@@ -4,7 +4,7 @@ const router = express.Router();
 const { 
   profile, 
   userStats, 
-  fetchProgram, 
+  fetchPrograms, 
   fetchProject, 
   fetchProjects, 
   fetchResource, 
@@ -19,9 +19,9 @@ router.use(isAuthenticated)
 router.get('/profile', profile)
 router.get('/user-stats', userStats)
 
-router.get('/program/:id', fetchProgram)
+router.get('/program/:id', fetchPrograms)
 router.get('/project/:id', fetchProject)
-// router.get('/projects', fetchProjects)
+router.get('/projects', fetchProjects) // in case they want more than one after a year
 router.get('/resource/:id', fetchResource)
 router.get('/resources', fetchResources)
 
