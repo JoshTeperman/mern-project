@@ -7,8 +7,10 @@ const {
   fetchProgram, 
   fetchProject, 
   fetchProjects, 
-  fetchResource, 
-  fetchResources 
+  // fetchAllProjects, //may be needed in future but not for MVP
+  fetchResources, 
+  fetchResource,
+  // fetchAllResources // not in MVP
 } = require('../../controllers/user-controller')
 
 const { seedDatabase } = require('../../utils/seeds')
@@ -21,9 +23,12 @@ router.get('/user-stats', userStats)
 
 router.get('/program/:id', fetchProgram)
 router.get('/project/:id', fetchProject)
-// router.get('/projects', fetchProjects)
-router.get('/resource/:id', fetchResource)
-router.get('/resources', fetchResources)
+router.get('/program/:id/projects', fetchProjects)
+// router.get('/projects', fetchAllProjects) // not in MVP but here for future
+// router.get('/resource/:id', fetchResource) // needed anymore? TBD
+router.get('/project/:id/resources', fetchResources)
+router.get('/project/:id/resources/:resourceId', fetchResource)
+// router.get('/resources', fetchAllResources) // not in MVP
 
 module.exports = router
 
