@@ -29,7 +29,8 @@ const assignProgramToClient = (clientID, programID) => {
 const createClient = async (clientObject) => {
   const { error } = validateClient(clientObject)
   if (error) {
-    console.log(error.message);
+    // console.log(error.message);
+    console.log(error);
     return { error: {
       name: error.name,
       message: error.message,
@@ -38,6 +39,7 @@ const createClient = async (clientObject) => {
   } else {
     try {
       return await Client.create({
+        _id: clientObject._id,
         companyName: clientObject.companyName,
       })
     } catch(err) {

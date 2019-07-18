@@ -5,6 +5,10 @@ require('./User')
 require('./Program')
 
 const clientSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   companyName: {
     type: String,
   },

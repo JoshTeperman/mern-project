@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
 
 const { User } = require('../models/User')
@@ -12,12 +13,18 @@ const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject, assignResourceToProject } = require('./Project-utils')
 
+
 const seedClients = async () => {
   console.log('Seeding Clients');
   try {
     return clientData.map(async (companyName) => {
-      const newClient = await createClient({ companyName: companyName })
-      return newClient
+      try {
+        const newObjectId = await mongoose.Types.ObjectId()
+        const newClient = await createClient({ companyName: companyName, _id: newObjectId })
+        return newClient
+      } catch(err) {
+        console.log(err);
+      }
     })
   } catch(err) { console.log(err) }
 }

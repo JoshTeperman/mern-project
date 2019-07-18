@@ -4,6 +4,10 @@ const Joi = require('joi')
 require('./Program')
 
 const resourceSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   name: {
     type: String,
   },

@@ -1,6 +1,7 @@
 const { assert, expect } = require('chai')
 const mongoose = require('mongoose')
 const { Client } = require('../../models/Client')
+const { User } = require('../../models/User')
 const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../../utils/Client-utils')
 
 describe('Client Model & Client Utility Methods', () => {
@@ -12,6 +13,7 @@ describe('Client Model & Client Utility Methods', () => {
 
   afterEach(async () => {
     await Client.deleteMany();
+    await User.deleteMany();
   }); 
 
   after(async() => {
@@ -35,14 +37,38 @@ describe('Client Model & Client Utility Methods', () => {
       assert.equal(newClient.companyName, 'Test Client')
     })
 
-    it('assignEmployeeToClient method successfully adds an objectID to Client', async () => {
-      const newClient = await createClient({ companyName: 'Test Client' })
-      const userID = await mongoose.Types.ObjectId()
-      console.log(newClient);
-      console.log(userID);
-      assignEmployeeToClient(newClient._id, userID)
+    it('assignEmployeeToClient method successfully adds an ObjectID to Client', async () => {
+      const newClient = await Client.create({ companyName: 'Test Client' })
+      const newUser = await User.create({ email: 'test@test.com', password: 'password', role: 'student' })
 
-      assert.include(newClient.employees, userID, 'should be the same ObjectId')
+      await assignEmployeeToClient(newClient._id, newUser._id.toString())
+      // assert.ok(newClient)
+      // assert.include([newUser._id, 'abc'], 'abc')
+      const result = await User.find({email: 'test@test.com'})
+      console.log(result);
+      expect(result).to.be.an('array').that.includes(newUser)
+      // assert result.
+
+    //   it('should complete this test', async () => {
+    //     await Promise.resolve();
+    //     assert.ok(true);
+    // });
+    
+      // assert.include(newClient.employees, newUser._id, 'should include the same ObjectId')
+    })
+    
+    it.skip('assignProgramToClient method successfully adds an ObjectID to Client', (done) => {
+      const newClient = createClient({ companyName: 'Test Client' })
+      const userID = mongoose.Types.ObjectId()
+
+      assignEmployeeToClient(newClient._id, userID.toString())
+        .then((result) => {
+          assert.ok(result)
+          done()
+        })
+
+
+      // assert.include(newClient.employees, userID, 'should be the same ObjectId')
     })
   })
 })

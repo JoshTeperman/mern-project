@@ -4,6 +4,10 @@ const Joi = require('joi')
 require('./Client')
 
 const userSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   email: {
     type: String,
   },

@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --recursive --bail --timeout 2000",
+    "coverage": "nyc npm run test",
     "start": "nodemon start"
   },
   "keywords": [],
@@ -24,6 +25,7 @@
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
     "now": "^15.7.0",
+    "nyc": "^14.1.1",
     "sinon": "^7.3.2"
   }
 }
