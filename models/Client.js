@@ -33,7 +33,7 @@ const validateClient = (client) => {
     _id: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
     companyName: Joi.string()
-      .regex(/[0-9a-zA-Z]/)
+      .regex(/[^\w\d\s]/, { invert: true })
       .required(),
     clientRepresentative: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),

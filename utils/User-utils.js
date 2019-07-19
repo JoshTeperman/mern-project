@@ -2,10 +2,8 @@ const { User, validateUser } = require('../models/User')
 const { generateHashedPassword } = require('./auth-utils')
 
 const createUser = async (userObject) => {
-  const { error } = validateUser(userObject)
+  const { error } = await validateUser(userObject)
   if (error) {
-    console.log(error.message);
-    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,

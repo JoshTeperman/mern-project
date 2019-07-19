@@ -2,17 +2,17 @@ const { Client, validateClient } = require('../models/Client')
 const { User } = require('../models/User')
 
 const assignEmployeeToClient = (clientID, userID) => {  
+  console.log(typeof userID);
   Client.updateOne({ 
     _id: clientID 
   }, { $push: { employees: userID }
-  }).exec((err) => {
+  }).exec((err, result) => {
     if (err) { console.log(err) }
     User.updateOne({
       _id: userID
     }, { $set: { clientID: clientID }
-    }).exec((err) => {
+    }).exec((err, result) => {
       if (err) { console.log(err) }
-      console.log(`updated user clientID`);
     })
   })
 }
@@ -21,7 +21,7 @@ const assignProgramToClient = (clientID, programID) => {
   Client.updateOne({
     _id: clientID
   }, { $push: { programs: programID }
-}).exec((err) => {
+}).exec((err, result) => {
   if (err) { console.log(err) }
 })
 }
@@ -29,8 +29,6 @@ const assignProgramToClient = (clientID, programID) => {
 const createClient = async (clientObject) => {
   const { error } = validateClient(clientObject)
   if (error) {
-    console.log(error.message);
-    console.log(error.details[0].context);
     return { error: {
       name: error.name,
       message: error.message,

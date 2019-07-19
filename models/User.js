@@ -35,7 +35,15 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema)
 
-const validateUser = (user) => {
+const validateUser = async (user) => {
+  const existingUser = await User.findOne({ email: user.email })
+  if (existingUser) {
+    return { error: {
+      name: 'Validation Error',
+      message: 'User with that email already exists',
+      status: 400
+    }}
+  }
   const schema = Joi.object().keys({
     _id: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
