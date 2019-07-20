@@ -7,7 +7,6 @@ require('./Program')
 const clientSchema = new Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
   },
   companyName: {
     type: String,
@@ -28,12 +27,22 @@ const clientSchema = new Schema({
 
 const Client = mongoose.model('Client', clientSchema)
 
-const validateClient = (client) => {
+const validateClient = async (client) => {
+  const existingClient = await Client.findOne({ companyName: client.companyName })
+  if (existingClient) {
+    return { error: {
+      name: 'Validation Error',
+      message: 'User with that email already exists',
+      status: 400
+    }}
+  }
+
   const schema = Joi.object().keys({
     _id: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
     companyName: Joi.string()
       .regex(/[^\w\d\s]/, { invert: true })
+      .min(3)
       .required(),
     clientRepresentative: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
@@ -42,10 +51,12 @@ const validateClient = (client) => {
     programs: Joi.array().items(Joi.string()
       .regex(/[0-9a-fA-F]{24}/))
   });
-  return Joi.validate(client, schema);
+  try {
+    return result = await Joi.validate(client, schema);
+  } catch(err) {
+    return { error: err }
+  }
 };
-
-
 
 module.exports = {
   Client,

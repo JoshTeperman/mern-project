@@ -7,7 +7,6 @@ require('./Resource')
 const projectSchema = new Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
   },
   name: {
     type: String,

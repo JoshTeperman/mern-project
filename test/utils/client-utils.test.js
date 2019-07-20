@@ -36,19 +36,29 @@ describe('Client', () => {
       })
 
       it('Client with invalid companyName does not pass validation', async () => {
-        await createClient({ companyName: '41/#', _id: new mongoose.Types.ObjectId().toString()})
-        await createClient({ companyName: '', _id: new mongoose.Types.ObjectId().toString()})
-        testClient1 = await Client.findOne({companyName: '41/#'})
-        testClient2 = await Client.findOne({companyName: ''})
-        assert.notExists(testClient1)
-        assert.notExists(testClient2)
+        const testClient1 = await createClient({ companyName: '41/#', _id: new mongoose.Types.ObjectId().toString()})
+        const testClient2 = await createClient({ companyName: '', _id: new mongoose.Types.ObjectId().toString()})
+
+        assert.exists(testClient1.error)
+        assert.exists(testClient2.error)
+      })
+
+      it('Duplicate Client does not pass validation', async () => {
+        const clientObject = {
+          _id: await new mongoose.Types.ObjectId().toString(),
+          companyName: 'Test Client'
+        }
+        const duplicate = await createClient(clientObject)
+        assert.exists(duplicate.error)
       })
     })
 
     describe('Client Utility Methods', () => {
       it('createClient method successfully creates a new Client', async () => {
-        const testClient = await createClient({ companyName: 'Test Client', _id: new mongoose.Types.ObjectId().toString() })
-        assert.equal(testClient.companyName, 'Test Client')
+        const testClient = await createClient({ companyName: 'New Client', _id: new mongoose.Types.ObjectId().toString() })
+        assert.notExists(testClient.error)
+        const query = await Client.findOne({ companyName: 'New Client' })
+        assert.exists(query)
       })
 
       it('assignEmployeeToClient method successfully adds an ObjectID to Client', async () => {
@@ -65,7 +75,6 @@ describe('Client', () => {
       })
       
       it('assignProgramToClient method successfully adds an ObjectID to Client', async () => {
-        // let client = await Client.findOne({ companyName: 'Test Client' })
         const programID = await new mongoose.Types.ObjectId().toString()
         await Client.findOne({ companyName: 'Test Client' }, async (err, client) => {
           await assignProgramToClient(client._id, programID);
