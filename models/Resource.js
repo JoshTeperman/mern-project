@@ -31,7 +31,7 @@ const resourceSchema = new Schema({
 
 const Resource = mongoose.model('Resource', resourceSchema)
 
-const validateResource = (resource) => {
+const validateResource = async (resource) => {
   const schema = new Joi.object({
     _id: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
@@ -46,7 +46,11 @@ const validateResource = (resource) => {
       .regex(/[0-9a-fA-F]{24}/),
     content: Joi.array().items(Joi.string(), Joi.object())
   })
-  return Joi.validate(resource, schema)
+  try {
+    return result = await Joi.validate(resource, schema);
+  } catch(err) {
+    return { error: err }
+  }
 }
 
 module.exports = { 
