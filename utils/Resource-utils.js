@@ -12,8 +12,9 @@ const createResource = async (resourceObject) => {
       description: resourceObject.description,
       type: resourceObject.type
     })
-  } catch(err) {
-    console.log(err.message)
+  } catch(error) {
+    console.log(error.message)
+    return { error }
   }
 }
 
