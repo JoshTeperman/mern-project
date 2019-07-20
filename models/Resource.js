@@ -4,6 +4,9 @@ const Joi = require('joi')
 require('./Program')
 
 const resourceSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   name: {
     type: String,
   },
@@ -30,6 +33,8 @@ const Resource = mongoose.model('Resource', resourceSchema)
 
 const validateResource = (resource) => {
   const schema = new Joi.object({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     name: Joi.string()
       .required(),
     description: Joi.string()

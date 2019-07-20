@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const { userData, programData, clientData, projectOneData, projectTwoData, resourceData } = require('./seedData')
 
 const { User } = require('../models/User')
@@ -12,12 +13,18 @@ const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject, assignResourceToProject } = require('./Project-utils')
 
+
 const seedClients = async () => {
   console.log('Seeding Clients');
   try {
     return clientData.map(async (companyName) => {
-      const newClient = await createClient({ companyName: companyName })
-      return newClient
+      try {
+        let newObjectId = await new mongoose.Types.ObjectId().toString()
+        const newClient = await createClient({ companyName: companyName, _id: newObjectId })
+        return newClient
+      } catch(err) {
+        console.log(err);
+      }
     })
   } catch(err) { console.log(err) }
 }
@@ -28,6 +35,7 @@ const seedPrograms = () => {
     try {
       const clients = await Client.find()
       const programPromises = programData.map( async (program, index) => {
+        program._id = new mongoose.Types.ObjectId().toString()
         const newProgram = await createProgram(program)
         const client = clients[index]
         assignProgramToClient(client._id, newProgram._id)
@@ -47,6 +55,7 @@ const seedProjects = async () => {
   return new Promise( async (resolve, reject) => {
     try {
       const projectPromises = projectOneData.map( async (project) => {
+        project._id = new mongoose.Types.ObjectId().toString()  
         const newProject = await createProject(project)
         programs.slice(0, 3).forEach(program => {
           assignProjectToProgram(program._id, newProject._id)
@@ -89,6 +98,7 @@ const seedUsers = async () =>  {
   try {
     // Seeding Super Admin User
     const superAdminUser = {
+      _id: new mongoose.Types.ObjectId().toString(),
       email: 'superadmin@admin.com',
       password: 'password',
       role: 'superadmin',
@@ -98,6 +108,7 @@ const seedUsers = async () =>  {
 
     // Seeding Student Users
     userData.map( async (userObject) => {
+      userObject._id = new mongoose.Types.ObjectId().toString()
       const newUser = await createUser(userObject)
       assignEmployeeToClient(coderAcademy._id, newUser._id)
       assignProgramToUser(newUser._id, program._id)

@@ -6,6 +6,9 @@ require('./Client')
 require('./Project')
 
 const programSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+  },
   name: {
     type: String,
   },
@@ -41,8 +44,10 @@ const programSchema = new Schema({
 
 const Program = mongoose.model('Program', programSchema)
 
-const validateProgram = (program) => {
+const validateProgram = async (program) => {
   const schema = new Joi.object({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     name: Joi.string()
       .required(),
     description: Joi.string()
@@ -59,8 +64,11 @@ const validateProgram = (program) => {
       .regex(/[0-9a-fA-F]{24}/)),
   })
 
-  return Joi.validate(program, schema)
-}
+  try {
+    return result = await Joi.validate(program, schema);
+  } catch(err) {
+    return { error: err }
+  }}
 
 module.exports = {
   Program,

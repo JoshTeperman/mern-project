@@ -5,6 +5,9 @@ require('./Program')
 require('./Resource')
 
 const projectSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   name: {
     type: String,
   },
@@ -36,8 +39,10 @@ const projectSchema = new Schema({
 
 const Project = mongoose.model('Project', projectSchema)
 
-const validateProject = (project) => {
+const validateProject = async (project) => {
   const schema = new Joi.object({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     name: Joi.string()
       .required(),
     description: Joi.string()
@@ -51,8 +56,14 @@ const validateProject = (project) => {
     resources: Joi.array().items(Joi.string()
       .regex(/[0-9a-fA-F]{24}/)),
   })
-  return Joi.validate(project, schema)
+
+  try {
+    return result = await Joi.validate(project, schema);
+  } catch(err) {
+    return { error: err }    
+  }
 }
+
 
 module.exports = {
   Project,

@@ -4,6 +4,9 @@ const Joi = require('joi')
 require('./Client')
 
 const userSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   email: {
     type: String,
   },
@@ -31,23 +34,37 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema)
 
-const validateUser = (user) => {
+const validateUser = async (user) => {
+  const existingUser = await User.findOne({ email: user.email })
+  if (existingUser) {
+    return { error: {
+      name: 'ValidationError',
+      message: 'User with that email already exists',
+      status: 403
+    }}
+  }
   const schema = Joi.object().keys({
+    _id: Joi.string()
+      .regex(/[0-9a-fA-F]{24}/),
     email: Joi.string()
-    .email({ minDomainSegments: 2 })
-    .required(),
+      .email({ minDomainSegments: 2 })
+      .required(),
     password: Joi.string()
-    .min(4)
-    .required(),
+      .min(4).error(new Error('Password must be longer than 4 characters'))
+      .required(),
     role: Joi.string()
-    .valid('admin', 'superadmin', 'student', 'manager')
-    .required(),
+      .valid('admin', 'superadmin', 'student', 'manager')
+      .required(),
     clientID: Joi.string()
-    .regex(/[0-9a-fA-F]{24}/),
+      .regex(/[0-9a-fA-F]{24}/),
     programs: Joi.array().items(Joi.string()
-    .regex(/[0-9a-fA-F]{24}/))
+      .regex(/[0-9a-fA-F]{24}/))
   });
-  return Joi.validate(user, schema);
+  try {
+    return result = await Joi.validate(user, schema);
+  } catch(err) {
+      return { error: err }
+  }
 };
 
 
