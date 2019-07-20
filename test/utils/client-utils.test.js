@@ -9,10 +9,11 @@ describe('Client', () => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
     mongoose.connect(mongoDB, { useNewUrlParser: true });
     await Client.deleteMany();
+    await User.deleteMany();
   })
 
   beforeEach(async () => {
-    await Client.create({ companyName: 'Test Client', _id: new mongoose.Types.ObjectId() })
+    await Client.create({ companyName: 'Test Client', _id: new mongoose.Types.ObjectId().toString() })
   })
 
   afterEach(async () => {
@@ -30,9 +31,9 @@ describe('Client', () => {
         assert.notEqual(Client, undefined, 'Client should not be undefined')
       })
     
-      it('Valid Client initializes as expected', async () => {
+      it('Valid Client initializes without error', async () => {
         testClient = await Client.findOne({ companyName: 'Test Client' })
-        assert.ok(testClient)
+        assert.notExists(testClient.error)
       })
 
       it('Client with invalid companyName does not pass validation', async () => {

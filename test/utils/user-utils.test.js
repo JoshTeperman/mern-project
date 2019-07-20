@@ -10,11 +10,13 @@ describe('User', () => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
     mongoose.connect(mongoDB, { useNewUrlParser: true });
     await User.deleteMany();
+    await Client.deleteMany();
+    await Program.deleteMany();
   })
 
   beforeEach(async () => {
     await User.create({ 
-      _id: new mongoose.Types.ObjectId(),
+      _id: new mongoose.Types.ObjectId().toString(),
       email: 'test@gmail.com',
       password: 'password',
       role: 'student'
@@ -24,6 +26,7 @@ describe('User', () => {
   afterEach(async () => {
     await Client.deleteMany();
     await User.deleteMany();
+    await Program.deleteMany();
   }); 
 
   after(async() => {
@@ -36,9 +39,9 @@ describe('User', () => {
         assert.notEqual(User, undefined, 'User should not be undefined')
       })
     
-      it('Valid User initializes as expected', async () => {
+      it('Valid User initializes without error', async () => {
         testUser = await User.findOne({ email: 'test@gmail.com' })
-        assert.ok(testUser)
+        assert.notExists(testUser.error)
       })
 
       it('User does not pass validation when email is invalid', async () => {

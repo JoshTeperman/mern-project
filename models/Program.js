@@ -44,7 +44,7 @@ const programSchema = new Schema({
 
 const Program = mongoose.model('Program', programSchema)
 
-const validateProgram = (program) => {
+const validateProgram = async (program) => {
   const schema = new Joi.object({
     _id: Joi.string()
       .regex(/[0-9a-fA-F]{24}/),
@@ -64,8 +64,11 @@ const validateProgram = (program) => {
       .regex(/[0-9a-fA-F]{24}/)),
   })
 
-  return Joi.validate(program, schema)
-}
+  try {
+    return result = await Joi.validate(program, schema);
+  } catch(err) {
+    return { error: err }
+  }}
 
 module.exports = {
   Program,

@@ -1,90 +1,80 @@
-const { assert, expect } = require('chai')
+const { assert } = require('chai')
 const mongoose = require('mongoose')
-const { Client } = require('../../models/Client')
-const { User } = require('../../models/User')
 const { Program } = require('../../models/Program')
-const { createProgram } = require('../../utils/Program-utils')
+const { Project } = require('../../models/Project')
+const { assignProjectToProgram, createProgram } = require('../../utils/Program-utils')
 
-describe('User', () => {
+describe('Program', () => {
   before(async() => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
     mongoose.connect(mongoDB, { useNewUrlParser: true });
-    await User.deleteMany();
+    await Program.deleteMany();
+    await Project.deleteMany();
   })
 
   beforeEach(async () => {
-    await User.create({ 
-      _id: new mongoose.Types.ObjectId(),
-      email: 'test@gmail.com',
-      password: 'password',
-      role: 'student'
+    await Program.create({ 
+      _id: new mongoose.Types.ObjectId().toString(),
+      name: 'Test Program',
+      description: 'Program Description',
+      category: 'Program Category',
+      startDate: new Date(),
+      endDate: new Date()
     })
   })
 
   afterEach(async () => {
-    await Client.deleteMany();
-    await User.deleteMany();
+    await Program.deleteMany();
+    await Project.deleteMany();
   }); 
 
   after(async() => {
     await mongoose.connection.close()
   })
 
-  describe.skip('User Model & User Utility Methods', () => {
-    describe('User Model', () => {
-      it('User model exists', () => {
-        assert.notEqual(User, undefined, 'User should not be undefined')
+  describe('Program Model & Program Utility Methods', () => {
+    describe('Program Model', () => {
+      it('Program model exists', () => {
+        assert.notEqual(Program, undefined, 'Program should not be undefined')
       })
     
-      it('Valid User initializes as expected', async () => {
-        testUser = await User.findOne({ email: 'test@gmail.com' })
-        assert.ok(testUser)
-      })
-
-      it.skip('Duplicate Program does not pass validation', async () => {
-        const userObject = {
-          _id: mongoose.Types.ObjectId().toString(),
-          email: 'test@gmail.com',
-          password: 'password',
-          role: 'student'
-        }
-        const duplicate = await createUser(userObject)
-        const result = await User.find()
-        assert.exists(duplicate.error)
+      it('Valid Program initializes without error', async () => {
+        testProgram = await Program.findOne({ name: 'Test Program' })
+        assert.notExists(testProgram.error)
       })
     })
 
-    describe('User Utility Methods', () => {
-      it('createUser method successfully creates a new User', async () => {
-        const userObject = {
-          _id: mongoose.Types.ObjectId().toString(),
-          email: 'newuser@gmail.com',
-          password: 'password',
-          role: 'student'
+    describe('Program Utility Methods', () => {
+      it('createProgram method successfully creates a new Program', async () => {
+        const programObject = {
+          _id: new mongoose.Types.ObjectId().toString(),
+          name: 'New Program',
+          description: 'New Program Description',
+          category: 'New Program Category',
+          startDate: new Date(),
+          endDate: new Date()
         }
-        await createUser(userObject)
-        const user = await User.findOne({ email: 'newuser@gmail.com' })
-        assert.exists(user)
+        await createProgram(programObject)
+        const program = await Program.findOne({ name: 'New Program' })
+        assert.exists(program)
       })
 
-      it('assignProgramToUser method successfully adds an programID to User', async () => {
-        let program = await Program.create({ 
+      it('assignProjectToProgram method successfully adds a projectID to Program', async () => {
+        let project = await Project.create({ 
           _id: await new mongoose.Types.ObjectId().toString(),
-          name: 'Test Program',
-          description: 'Test Description',
-          category: 'Test Category',
+          name: 'New Project',
+          description: 'New Project Description',
+          category: 'New Project Category',
           startDate: new Date(),
           endDate: new Date()
         })
 
-        const user = await User.findOne({ email: 'test@gmail.com' })
-        await assignProgramToUser(user._id, program._id)
+        const program = await Program.findOne({ name: 'Test Program' })
+        await assignProjectToProgram(program._id, project._id)
 
-        const updatedUser = await User.findOne({ email: 'test@gmail.com' })
-        assert.include(updatedUser.programs, program._id )
+        const updatedProgram = await Program.findOne({ name: 'Test Program' })
+        assert.include(updatedProgram.projects, project._id)
       })
     })
   })
 })
-
-
