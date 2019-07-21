@@ -9,9 +9,6 @@ const login = async (req, res) => {
     try {
       const foundUser = await User.findOne({ email })
       if (foundUser === null) {
-        // return res.json({
-        //   error: { message: `User doesn't exist`, status: 403 }
-        // })
         return res.status(403).json({
           error: { message: `User doesn't exist`, status: 403 }
         })
@@ -24,9 +21,6 @@ const login = async (req, res) => {
             token: token 
           })
         } else {
-          // return res.json({ 
-          //   error: { message: 'TEST: could not authenticate user', status: 403 }
-          // })
           return res.status(403).json({ 
             error: { message: 'Could not authenticate user', status: 403 }
           })
@@ -42,9 +36,6 @@ const login = async (req, res) => {
     return res.status(403).json({ 
       error: { message: 'Could not authenticate user', status: 403 }
     })  }
-    // return res.json({ 
-    //   error: { message: 'could not authenticate user', status: 403 }
-    // })  }
 }
 
 
