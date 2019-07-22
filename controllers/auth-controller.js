@@ -2,7 +2,6 @@ const { User } = require('../models/User')
 
 const { generateToken, checkPassword } = require('../utils/auth-utils')
 
-
 const login = async (req, res) => {
   const { email, password } = req.body
   if ( email && password ) {
@@ -37,8 +36,6 @@ const login = async (req, res) => {
       error: { message: 'Could not authenticate user', status: 403 }
     })  }
 }
-
-
 
 module.exports = {
   login,

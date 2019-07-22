@@ -55,13 +55,14 @@ const seedProjects = async () => {
   return new Promise( async (resolve, reject) => {
     try {
       const projectPromises = projectOneData.map( async (project) => {
-        project._id = new mongoose.Types.ObjectId().toString()  
+        project._id = await new mongoose.Types.ObjectId().toString()  
         const newProject = await createProject(project)
         programs.slice(0, 3).forEach(program => {
           assignProjectToProgram(program._id, newProject._id)
         })
       })
       projectTwoData.map( async (project) => {
+        project._id = await new mongoose.Types.ObjectId().toString()
         const newProject = await createProject(project)
         programs.slice(3).forEach(program => {
           assignProjectToProgram(program._id, newProject._id)
@@ -80,6 +81,7 @@ const seedResources = async () => {
   const projects = await Project.find()
   try {
     resourceData.map( async (resourceObject) => {
+      resourceObject._id = new mongoose.Types.ObjectId().toString()  
       const newResource = await createResource(resourceObject)
       projects.forEach(project => {
         assignResourceToProject(project._id, newResource._id)
