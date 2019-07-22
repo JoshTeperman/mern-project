@@ -51,23 +51,6 @@ describe('Resource', () => {
         const resource = await Resource.findOne({ name: 'New Resource' })
         assert.exists(resource)
       })
-
-      it('assignResourceToProject method successfully adds a resourceId to Project', async () => {
-        let resource = await Resource.create({ 
-          _id: await new mongoose.Types.ObjectId().toString(),
-          name: 'New Resource',
-          description: 'New Resource Description',
-          category: 'New Resource Category',
-          startDate: new Date(),
-          endDate: new Date()
-        })
-
-        const project = await Project.findOne({ name: 'Test Project' })
-        await assignResourceToProject(project._id, resource._id)
-
-        const updatedProject = await Project.findOne({ name: 'Test Project' })
-        assert.include(updatedProject.resources, resource._id)
-      })
     })
   })
 })

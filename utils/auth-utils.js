@@ -1,4 +1,3 @@
-const { User } = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -8,7 +7,11 @@ const generateHashedPassword = async (password) => {
 }
 
 const generateToken = (email) => {
-  return jwt.sign({ email }, process.env.JWT_SECRET, {expiresIn: '7d'});
+  try {
+    return jwt.sign({ email }, process.env.JWT_SECRET, {expiresIn: '7d'});
+  } catch(err) {
+    console.log('generateToken error');
+  }
 }
 
 const checkPassword = async (password, hashedPassword) => {

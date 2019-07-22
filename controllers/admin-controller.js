@@ -5,6 +5,34 @@ const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
+
+
+
+// Client Routes
+// router.get('/clients', controller.getClients)
+// router.post('/clients', controller.createClient)
+// router.put('/clients/:id', controller.editClient)
+// router.delete('/clients/:id', controller.deleteClient)
+
+// Program Routes
+// router.get('/programs', controller.getPrograms)
+// router.post('/programs', controller.createProgram)
+// router.put('/programs/:id', controller.editProgram)
+// router.delete('/programs/:id', controller.deleteProgram)
+
+// Project Routes
+// router.get('/projects', controller.getProjects)
+// router.post('/projects', controller.createProject)
+// router.put('/projects/:id', controller.editProject)
+// router.delete('/projects/:id', controller.deleteProject)
+
+// Resource routes
+// router.get('/resources', controller.getResources)
+// router.post('/resources', controller.createResource)
+// router.put('/resources/:id', controller.editResource)
+// router.delete('/resources/:id', controller.deleteResource)
+
+
 const register = async (req, res) => {
   const { email, password, role, company, status } = req.body
   if (email && password && role) {
@@ -31,18 +59,27 @@ const register = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
+  console.log('get users endpoint');
   try {
+    // console.log('try block');
     const users = await User.find()
-    if (users.length === 0) {
-      return res.json({ message: 'No users' })      
-    } 
+    // console.log(users)
+      // .then((res) => console.log(res))
+    // console.log(`users: ${users}`);
+    // if (users.length === 0) {
+    //   console.log('no users found');
+    //   return res.json({ message: 'No users' })      
+    // } 
+    // console.log('no users found');
     return res.json({ users: users })
+    // return res.send('ok')
   } catch(err) {
     console.log(err.stack);
     return res.json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
+  // res.send('hello')
 }
 
 const getClients = async (req, res) => {

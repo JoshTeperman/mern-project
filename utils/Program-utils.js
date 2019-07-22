@@ -31,7 +31,6 @@ const assignProjectToProgram = async (programID, projectID) => {
     }, { $set: { program: programID }
     }).exec((err) => {
       if (err) { console.log(err) }
-      console.log(`updated Project programID`);
     })
   }) 
 }

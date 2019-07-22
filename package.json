@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --recursive --bail --timeout 2000",
+    "test": "nyc mocha --recursive --bail --timeout 2000",
     "start": "nodemon start"
   },
   "keywords": [],
@@ -25,6 +25,7 @@
     "nodemon": "^1.19.1",
     "now": "^15.7.0",
     "nyc": "^14.1.1",
-    "sinon": "^7.3.2"
+    "sinon": "^7.3.2",
+    "supertest": "^4.0.2"
   }
 }

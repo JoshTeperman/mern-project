@@ -31,7 +31,6 @@ const assignResourceToProject = async (projectID, resourceID) => {
     }, { $set: { projectID: projectID }
     }).exec((err) => {
       if (err) { console.log(err) }
-      console.log(`updated Resource projectID`);
     })
   }) 
 }

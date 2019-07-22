@@ -2,9 +2,27 @@ const { User } = require('../models/User');
 const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
+const { verifyToken } = require('../utils/protected-utils')
 
 const profile = (req, res) => {
   res.send('user profile endpoint')
+} 
+
+const fetchUser = (req, res) => {
+  const { token } = req.headers
+  const user = verifyToken(token)
+  if (!user) {
+    console.log('user not authenticated, sending back error object');
+    return res.status(403).json({
+      error: {
+        status: 403,
+        message: 'Could not authenticate user'
+      }
+    })
+  } else {
+    console.log('sending back user object');
+    return res.send({ user })
+  }
 }
 
 const userStats = (req, res) => {
@@ -42,17 +60,6 @@ const fetchProject = async (req, res) => {
     console.log(err.message)
   }
 }
-//  Leaving this code for future building: Will be fetchAllProjects method to get all of a User's projects
-//  const userId = req.params.id
-//   const objectId = mongoose.Types.ObjectId(userId);
-//   const query = await User.findById(objectId).populate('program')
-//   const programId = query.programs[0]
-//   const project = await Program.findById(programId).populate('projects')
-//   console.log(project)
-// } catch(err) {
-//   console.log(err.message)
-// }
-// res.send('user all Projects endpoint') }
 
 const fetchResources = async (req, res) => {
   try {
@@ -75,16 +82,20 @@ const fetchResource = async (req, res) => {
   }
 }
 
-//fetchAllResources // not in MVP but can go here in future
+
+// User Routes
+// router.get('/users', controller.getUsers)
+// router.post('/users', controller.createUser)
+// router.put('/users/:id', controller.editUser)
+// router.delete('/users/:id', controller.deleteUser)
 
 module.exports = {
   profile, 
+  fetchUser,
   userStats, 
   fetchProgram, 
   fetchProjects, 
   fetchProject, 
-  // fetchAllProjects, // not in MVP 
   fetchResources, 
   fetchResource
-  // fetchAllResources // not in MVP
 }
