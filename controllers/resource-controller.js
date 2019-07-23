@@ -1,3 +1,5 @@
+const { Resource } = require('../models/Resource')
+
 const getResources = async (req, res) => {
   try {
     const { id } = req.params
