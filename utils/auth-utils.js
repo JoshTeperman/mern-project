@@ -6,10 +6,11 @@ const generateHashedPassword = async (password) => {
   return await bcrypt.hash(password, saltRounds);
 }
 
-const generateToken = (email) => {
+const generateToken = ({ email }) => {
   try {
     return jwt.sign({ email }, process.env.JWT_SECRET, {expiresIn: '7d'});
   } catch(err) {
+    console.log(err);
     console.log('generateToken error');
   }
 }

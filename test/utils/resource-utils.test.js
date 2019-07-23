@@ -6,7 +6,11 @@ const { createResource } = require('../../utils/Resource-utils')
 describe('Resource', () => {
   before(async() => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
-    mongoose.connect(mongoDB, { useNewUrlParser: true });
+    await mongoose.connect(mongoDB, { 
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    }); 
     await Resource.deleteMany();
   })
 

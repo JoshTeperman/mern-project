@@ -7,7 +7,7 @@ const { Client } = require('../models/Client')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
-const { createUser, assignProgramToUser } = require('./User-utils')
+const { createUser, assignProgramToUser } = require('../controllers/user-controller')
 const { createClient, assignEmployeeToClient, assignProgramToClient } = require('./Client-utils')
 const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')

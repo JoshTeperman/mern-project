@@ -4,7 +4,11 @@ const config = require('./config/config')
 require('dotenv').config()
 
 // DEV DB on localhost -->
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true }, err => {
+mongoose.connect(process.env.DB_URL, { 
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}, err => {
   if (err) {
     console.log('👺  Error connecting to MongoDB');
   } else {
