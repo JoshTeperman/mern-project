@@ -15,6 +15,7 @@ const login = async (req, res) => {
         const result = await checkPassword(password, foundUser.password)
         if (result) {
           const token = await generateToken(foundUser)
+          console.log(token);
           return res.send({ 
             user: foundUser,
             token: token 

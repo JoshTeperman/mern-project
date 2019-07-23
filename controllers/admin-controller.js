@@ -5,9 +5,6 @@ const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
-
-
-
 // Client Routes
 // router.get('/clients', controller.getClients)
 // router.post('/clients', controller.createClient)
@@ -39,7 +36,7 @@ const register = async (req, res) => {
     try {
       const foundUser = await User.findOne({ email: email })
       if (foundUser) {
-        return res.json({ 
+        return res.status(404).json({ 
           error: { message: 'User already exists', status: 400 }
         })      
       } else if (foundUser === null) {
@@ -49,37 +46,30 @@ const register = async (req, res) => {
       }
     } catch(err) {
       console.log(err.stack);
-      return res.json({ 
+      return res.status(404).json({ 
         error: { message: 'an error occured', status: 404 }
       })      }
   } else {
-    return res.json({ 
+    return res.status(403).json({ 
       error: { message: 'could not authenticate user', status: 403 }
     })  }
 }
 
 const getUsers = async (req, res) => {
-  console.log('get users endpoint');
   try {
-    // console.log('try block');
     const users = await User.find()
-    // console.log(users)
-      // .then((res) => console.log(res))
-    // console.log(`users: ${users}`);
-    // if (users.length === 0) {
-    //   console.log('no users found');
-    //   return res.json({ message: 'No users' })      
-    // } 
-    // console.log('no users found');
+    if (users.length === 0) {
+      return res.json({ message: 'No users' })      
+    } 
+    // console.log(users);
     return res.json({ users: users })
-    // return res.send('ok')
   } catch(err) {
+    console.log('error encountered');
     console.log(err.stack);
-    return res.json({ 
+    return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
-  // res.send('hello')
 }
 
 const getClients = async (req, res) => {
@@ -91,7 +81,7 @@ const getClients = async (req, res) => {
     return res.json({ clients: clients })
   } catch(err) {
     console.log(err.stack);
-    return res.json({ 
+    return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -106,7 +96,7 @@ const getPrograms = async (req, res) => {
     return res.json({ programs: programs })
   } catch(err) {
     console.log(err.stack);
-    return res.json({ 
+    return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -121,7 +111,7 @@ const getProjects = async (req, res) => {
     return res.json({ projects: projects })
   } catch(err) {  
     console.log(err.stack);
-    return res.json({ 
+    return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -136,7 +126,7 @@ const getResources = async (req, res) => {
     return res.json({ resources: resources })
   } catch(err) {
     console.log(err.stack);
-    return res.json({ 
+    return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }

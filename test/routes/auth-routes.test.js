@@ -3,7 +3,7 @@ const request = require("supertest");
 const { assert } = require("chai")
 const mongoose = require("mongoose");
 const { User } = require('../../models/User')
-const { createUser } = require('../../utils/User-utils')
+const { createUser } = require('../../controllers/user-controller')
 
 describe("Auth Routes", () => {
   it("has a module", () => {
@@ -14,7 +14,11 @@ describe("Auth Routes", () => {
 
   before(async () => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
-    await mongoose.connect(mongoDB, { useNewUrlParser: true });
+    await mongoose.connect(mongoDB, { 
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    }); 
     await mongoose.connection.db.dropDatabase();
     server = app.listen(3001);
   });

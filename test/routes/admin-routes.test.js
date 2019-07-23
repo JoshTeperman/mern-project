@@ -3,7 +3,7 @@ const request = require("supertest");
 const { assert } = require("chai")
 const sinon = require('sinon')
 const mongoose = require("mongoose");
-const { createUser } = require('../../utils/User-utils')
+const { createUser } = require('../../controllers/user-controller')
 const { generateToken } = require('../../utils/auth-utils')
 const { User } = require('../../models/User')
 
@@ -20,7 +20,11 @@ describe("Admin Routes", async () => {
   
   before(async () => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
-    await mongoose.connect(mongoDB, { useNewUrlParser: true });
+    await mongoose.connect(mongoDB, { 
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+     });    
     await mongoose.connection.db.dropDatabase();
     server = app.listen(3001);
   });
@@ -41,24 +45,18 @@ describe("Admin Routes", async () => {
       })
 
       const token = await generateToken(testUser.email)
-      const response = await request(server)
+        await request(server)
         .get('/admin/users')
         .set({ token })
-        // console.log(response.status);
         .expect(200)
         .expect((res) => {
-          assert.notInclude(res.error)
-          console.log(res.status);
+          const result = JSON.parse(res.text)
+          assert.notExists(result.error)
+          assert.exists(result.users)
         })
         .catch(err => {
           console.log(err);
         })
-
-
-        // .expect((res) => {
-        //   console.log(res);
-        // })
-
     })
   })
 

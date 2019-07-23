@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const { assert } = require('chai')
 const { User } = require('../../models/User')
 const { generateHashedPassword, generateToken, checkPassword } = require('../../utils/auth-utils')
-const { createUser } = require('../../utils/User-utils')
+const { createUser } = require('../../controllers/user-controller')
 const path = require('path');
 const dotEnvPath = path.resolve('./.env')
 require('dotenv').config({ path: dotEnvPath});
@@ -11,7 +11,11 @@ require('dotenv').config({ path: dotEnvPath});
 describe('Auth Utils Methods', () => {
   before(async() => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
-    mongoose.connect(mongoDB, { useNewUrlParser: true });
+    await mongoose.connect(mongoDB, { 
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    }); 
     await User.deleteMany();
   })
 

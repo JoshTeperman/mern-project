@@ -7,7 +7,11 @@ const { assignProjectToProgram, createProgram } = require('../../utils/Program-u
 describe('Program', () => {
   before(async() => {
     const mongoDB = "mongodb://127.0.0.1/mi-academy_testdb";
-    mongoose.connect(mongoDB, { useNewUrlParser: true });
+    await mongoose.connect(mongoDB, { 
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    }); 
     await Program.deleteMany();
     await Project.deleteMany();
   })
