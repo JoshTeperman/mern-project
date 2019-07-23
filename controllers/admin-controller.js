@@ -4,6 +4,8 @@ const { Client } = require('../models/Client')
 const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
+const { seed } = require('../utils/seeds')
+const { verifySeedPassword } = require('../utils/admin-utils')
 
 // Client Routes
 // router.get('/clients', controller.getClients)
@@ -29,6 +31,17 @@ const { Resource } = require('../models/Resource')
 // router.put('/resources/:id', controller.editResource)
 // router.delete('/resources/:id', controller.deleteResource)
 
+const authenticateSeed = (req, res, next) => {
+  console.log('authenticate seed endpoint');
+  const { password } = req.headers
+  // console.log(req);
+  console.log(password);
+  const result = verifySeedPassword(password)
+  if (!result) {
+    return res.json({ status: 400, message: 'Not Authorized'})
+  }
+  next()
+}
 
 const register = async (req, res) => {
   const { email, password, role, company, status } = req.body
@@ -133,6 +146,7 @@ const getResources = async (req, res) => {
 }
 
 module.exports = {
+  authenticateSeed,
   register,
   getUsers,
   getClients,

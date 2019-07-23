@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const app = require('./express')
-const config = require('./config/config')
+const { config, seedSuperAdmin } = require('./config/config')
+
 require('dotenv').config()
 
 // DEV DB on localhost -->
@@ -13,8 +14,10 @@ mongoose.connect(process.env.DB_URL, {
     console.log('👺  Error connecting to MongoDB');
   } else {
     console.log('✅  Connected to MongoDB');
+    // seedSuperAdmin()
   }
 })
+
 
 app.use(require('./routes'))
 
