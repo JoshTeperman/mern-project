@@ -1,4 +1,5 @@
 const { Resource } = require('../models/Resource')
+const { Project } = require('../models/Project')
 
 const getResources = async (req, res) => {
   try {
