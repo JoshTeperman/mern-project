@@ -42,7 +42,7 @@ const seedClients = async (req, res) => {
 }
 
 const seedPrograms = async (req, res) => {
-  console.log('Deleting Program...');
+  console.log('Deleting Programs...');
   await Program.deleteMany()
 
   console.log('Seeding Programs ...');
@@ -74,10 +74,10 @@ const seedPrograms = async (req, res) => {
 }
 
 const seedProjects = async (req, res) => {
-  console.log('Deleting Projects...');
+  console.log('Deleting Projects......');
   await Project.deleteMany()
 
-  console.log('Seeding Projects...');
+  console.log('Seeding Projects......');
   const programs = await Program.find()
   
   try {
@@ -119,10 +119,10 @@ const seedProjects = async (req, res) => {
 }
 
 const seedResources = async (req, res) => {
-  console.log('Deleting Projects...');
+  console.log('Deleting Resources...');
   await Resource.deleteMany()
 
-  console.log('Seeding Resources');
+  console.log('Seeding Resources...');
   const projects = await Project.find()
   try {
     resourceData.map( async (resourceObject) => {
@@ -135,9 +135,10 @@ const seedResources = async (req, res) => {
           console.log('added resource to project');
         })
       } catch (err) {
-        console.log(err);
+        console.log(err.message);
       }
     })
+    return res.json({ message: 'Finished seeding Resources' })
   } catch(err) {
     console.log(err)
     return res.json({
@@ -149,8 +150,45 @@ const seedResources = async (req, res) => {
   }
 }
 
-const seedUsers = async () => {
+const seedUsers = async (req, res) => {
+  console.log('Deleting Users...');
+  await User.deleteMany()
 
+  console.log('Seeding Users');
+  const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
+  const program = await Program.findOne({ name: 'test program' })
+
+  try {
+    // Seeding Super Admin User
+    const superAdminUser = {
+      _id: new mongoose.Types.ObjectId().toString(),
+      email: 'superadmin@admin.com',
+      password: 'password',
+      role: 'superadmin',
+      clientID: coderAcademy._id.toString()
+    }
+    await createUser(superAdminUser)
+    console.log('created new user');
+
+    // Seeding Student Users
+    userData.map( async (userObject) => {
+      userObject._id = new mongoose.Types.ObjectId().toString()
+      const newUser = await createUser(userObject)
+      console.log('created new user');
+      assignEmployeeToClient(coderAcademy._id, newUser._id)
+      console.log('assigned employee to Client');
+      assignProgramToUser(newUser._id, program._id)
+      console.log('assigned program to user');
+    })
+    return res.json({ message: 'Finished seeding Users' })
+  } catch(err) { 
+    console.log(err.message) 
+    return res.json({
+      error: {
+        status: 400,
+        message: 'Could not complete seeding Projects.'
+      }
+    })}
 }
 
 module.exports = {
