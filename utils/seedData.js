@@ -17,11 +17,6 @@ userData = [
     role: 'student',
   },
   {
-    email: 'student3@gmail.com',
-    password: 'password',
-    role: 'student',
-  },
-  {
     email: 'student4@gmail.com',
     password: 'password',
     role: 'student',

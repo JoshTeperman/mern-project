@@ -33,7 +33,7 @@ const projectSchema = new Schema({
   }],
   completed: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 

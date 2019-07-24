@@ -38,7 +38,7 @@ const programSchema = new Schema({
   }],
   completed: {
     type: Boolean,
-    default: true
+    default: false
   }
 })
 
