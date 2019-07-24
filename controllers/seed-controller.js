@@ -119,7 +119,34 @@ const seedProjects = async (req, res) => {
 }
 
 const seedResources = async (req, res) => {
+  console.log('Deleting Projects...');
+  await Resource.deleteMany()
 
+  console.log('Seeding Resources');
+  const projects = await Project.find()
+  try {
+    resourceData.map( async (resourceObject) => {
+      resourceObject._id = new mongoose.Types.ObjectId().toString()  
+      try {
+        const newResource = await createResource(resourceObject)
+        console.log('created new project');
+        projects.forEach(project => {
+          assignResourceToProject(project._id, newResource._id)
+          console.log('added resource to project');
+        })
+      } catch (err) {
+        console.log(err);
+      }
+    })
+  } catch(err) {
+    console.log(err)
+    return res.json({
+      error: {
+        status: 400,
+        message: 'Could not complete seeding Projects.'
+      }
+    })
+  }
 }
 
 const seedUsers = async () => {
