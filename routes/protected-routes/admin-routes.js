@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const { authenticateSeed, getUsers, getClients, getPrograms, getProjects, getResources } = require('../../controllers/admin-controller')
+const { seedClients, seedPrograms, seedProjects, seedResources, seedUsers } = require('../../controllers/seed-controller')
 const { seedDatabase } = require('../../utils/seeds')
 const { authenticateRequest } = require('../../utils/protected-utils')
 
@@ -9,7 +10,11 @@ router.use(authenticateRequest)
 router.use('/seed', authenticateSeed)
 
 router.post('/seed', seedDatabase)
-// router.post('/seed', seedDatabase)
+router.post('/seed/clients', seedClients)
+router.post('/seed/programs', seedPrograms)
+router.post('/seed/projects', seedProjects)
+router.post('/seed/resources', seedResources)
+router.post('/seed/users', seedUsers)
 
 // User Routes
 router.get('/users', getUsers)

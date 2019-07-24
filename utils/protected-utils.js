@@ -7,7 +7,7 @@ const verifyToken = (token) => {
 }
 
 const authenticateRequest = (req, res, next) => {
-  if ( req.path == '/seed') return next();
+  if ( req.path.match(/seed/) ) return next();
 
   const { token } = req.headers
   if (!token) {

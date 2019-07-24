@@ -4,38 +4,10 @@ const { Client } = require('../models/Client')
 const { Program } = require('../models/Program')
 const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
-const { seed } = require('../utils/seeds')
 const { verifySeedPassword } = require('../utils/admin-utils')
 
-// Client Routes
-// router.get('/clients', controller.getClients)
-// router.post('/clients', controller.createClient)
-// router.put('/clients/:id', controller.editClient)
-// router.delete('/clients/:id', controller.deleteClient)
-
-// Program Routes
-// router.get('/programs', controller.getPrograms)
-// router.post('/programs', controller.createProgram)
-// router.put('/programs/:id', controller.editProgram)
-// router.delete('/programs/:id', controller.deleteProgram)
-
-// Project Routes
-// router.get('/projects', controller.getProjects)
-// router.post('/projects', controller.createProject)
-// router.put('/projects/:id', controller.editProject)
-// router.delete('/projects/:id', controller.deleteProject)
-
-// Resource routes
-// router.get('/resources', controller.getResources)
-// router.post('/resources', controller.createResource)
-// router.put('/resources/:id', controller.editResource)
-// router.delete('/resources/:id', controller.deleteResource)
-
 const authenticateSeed = (req, res, next) => {
-  console.log('authenticate seed endpoint');
   const { password } = req.headers
-  // console.log(req);
-  console.log(password);
   const result = verifySeedPassword(password)
   if (!result) {
     return res.json({ status: 400, message: 'Not Authorized'})
@@ -74,10 +46,8 @@ const getUsers = async (req, res) => {
     if (users.length === 0) {
       return res.json({ message: 'No users' })      
     } 
-    // console.log(users);
     return res.json({ users: users })
   } catch(err) {
-    console.log('error encountered');
     console.log(err.stack);
     return res.status(404).json({ 
       error: { message: 'an error occured', status: 404 }
