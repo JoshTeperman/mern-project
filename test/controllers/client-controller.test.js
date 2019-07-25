@@ -2,7 +2,7 @@ const { assert, expect } = require('chai')
 const mongoose = require('mongoose')
 const { Client } = require('../../models/Client')
 const { User } = require('../../models/User')
-const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../../utils/Client-utils')
+const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../../controllers/client-controller')
 
 describe('Client', () => {
   before(async() => {
@@ -29,7 +29,7 @@ describe('Client', () => {
     await mongoose.connection.close()
   })
 
-  describe('Client Model & Client Utility Methods', () => {
+  describe('Client Model & Client Controller Methods', () => {
     describe('Client Model', () => {
       it('Client model exists', () => {
         assert.notEqual(Client, undefined, 'Client should not be undefined')
@@ -58,7 +58,7 @@ describe('Client', () => {
       })
     })
 
-    describe('Client Utility Methods', () => {
+    describe('Client Controller Methods', () => {
       it('createClient method successfully creates a new Client', async () => {
         const testClient = await createClient({ companyName: 'New Client', _id: new mongoose.Types.ObjectId().toString() })
         assert.notExists(testClient.error)

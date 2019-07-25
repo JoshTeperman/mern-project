@@ -2,7 +2,7 @@ const { assert } = require('chai')
 const mongoose = require('mongoose')
 const { Resource } = require('../../models/Resource')
 const { Project } = require('../../models/Project')
-const { assignResourceToProject, createProject } = require('../../utils/Project-utils')
+const { assignResourceToProject, createProject } = require('../../controllers/project-controller')
 
 describe('Project', () => {
   before(async() => {

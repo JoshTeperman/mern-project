@@ -21,7 +21,7 @@ const register = async (req, res) => {
     try {
       const foundUser = await User.findOne({ email: email })
       if (foundUser) {
-        return res.status(404).json({ 
+        return res.json({ 
           error: { message: 'User already exists', status: 400 }
         })      
       } else if (foundUser === null) {
@@ -31,11 +31,11 @@ const register = async (req, res) => {
       }
     } catch(err) {
       console.log(err.stack);
-      return res.status(404).json({ 
+      return res.json({ 
         error: { message: 'an error occured', status: 404 }
       })      }
   } else {
-    return res.status(403).json({ 
+    return res.json({ 
       error: { message: 'could not authenticate user', status: 403 }
     })  }
 }
@@ -49,7 +49,7 @@ const getUsers = async (req, res) => {
     return res.json({ users: users })
   } catch(err) {
     console.log(err.stack);
-    return res.status(404).json({ 
+    return res.json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -64,7 +64,7 @@ const getClients = async (req, res) => {
     return res.json({ clients: clients })
   } catch(err) {
     console.log(err.stack);
-    return res.status(404).json({ 
+    return res.json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -79,7 +79,7 @@ const getPrograms = async (req, res) => {
     return res.json({ programs: programs })
   } catch(err) {
     console.log(err.stack);
-    return res.status(404).json({ 
+    return res.json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -94,7 +94,7 @@ const getProjects = async (req, res) => {
     return res.json({ projects: projects })
   } catch(err) {  
     console.log(err.stack);
-    return res.status(404).json({ 
+    return res.son({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }
@@ -109,7 +109,7 @@ const getResources = async (req, res) => {
     return res.json({ resources: resources })
   } catch(err) {
     console.log(err.stack);
-    return res.status(404).json({ 
+    return res.json({ 
       error: { message: 'an error occured', status: 404 }
     })      
   }

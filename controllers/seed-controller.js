@@ -8,10 +8,10 @@ const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
 const { createUser, assignProgramToUser } = require('../controllers/user-controller')
-const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../utils/Client-utils')
-const { createProgram, assignProjectToProgram } = require('../utils/Program-utils')
-const { createResource } = require('../utils/Resource-utils')
-const { createProject, assignResourceToProject } = require('../utils/Project-utils')
+const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../controllers/client-controller')
+const { createProgram, assignProjectToProgram } = require('../controllers/program-controller')
+const { createResource } = require('../controllers/resource-controller')
+const { createProject, assignResourceToProject } = require('../controllers/project-controller')
 
 const seedClients = async (req, res) => {
   console.log('Deleting Clients...');
