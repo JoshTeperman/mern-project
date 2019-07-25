@@ -8,10 +8,48 @@ const { Project } = require('../models/Project')
 const { Resource } = require('../models/Resource')
 
 const { createUser, assignProgramToUser } = require('../controllers/user-controller')
-const { createClient, assignEmployeeToClient, assignProgramToClient } = require('./Client-utils')
-const { createProgram, assignProjectToProgram } = require('./Program-utils')
-const { createResource } = require('./Resource-utils')
-const { createProject, assignResourceToProject } = require('./Project-utils')
+const { createClient, assignEmployeeToClient, assignProgramToClient } = require('../controllers/client-controller')
+const { createProgram, assignProjectToProgram } = require('../controllers/program-controller')
+const { createResource } = require('../controllers/resource-controller')
+const { createProject, assignResourceToProject } = require('../controllers/project-controller')
+
+// Seeds all models. This method works for the development database, but fails silently when trying to seed to MongoDB Atlas using Postman
+
+const seedDatabase = async (req, res) => {
+  console.log('Destroying Data...')
+  try {
+    await User.deleteMany()
+    await Program.deleteMany()
+    await Client.deleteMany()
+    await Project.deleteMany()
+    await Resource.deleteMany()
+
+    console.log('Starting Database Seed...');  
+    try {
+      // Seeding Clients
+      const clientPromises = await seedAsyncClients()
+      await Promise.all(clientPromises)
+      // Seeding Programs
+      seedAsyncPrograms()
+        .then(() => {
+          // Seeding Projects & adding Projects to Programs
+          seedAsyncProjects()
+            .then(() => {
+              // Seeding Resources & adding Resources to Projects
+              seedAsyncResources()
+            })
+            .then(() => {
+              // Seeding Users
+              seedAsyncUsers()
+            })
+        })
+    } catch(err) { res.send(err) }
+    
+  } catch(err) { return res.send(err) }
+  return res.json({ message: 'Finished Seeding Database' })
+}
+
+// The following seed functions can be run one at a time to produce the same result as the seedDatabase function:
 
 const seedAsyncClients = async () => {
   console.log('Seeding Clients');
@@ -127,39 +165,6 @@ const seedAsyncUsers = async () =>  {
   } catch(err) { console.log(err.message, err.stack) }
 }
 
-const seedDatabase = async (req, res) => {
-  console.log('Destroying Data...')
-  try {
-    await User.deleteMany()
-    await Program.deleteMany()
-    await Client.deleteMany()
-    await Project.deleteMany()
-    await Resource.deleteMany()
-
-    console.log('Starting Database Seed...');  
-    try {
-      // Seeding Clients
-      const clientPromises = await seedAsyncClients()
-      await Promise.all(clientPromises)
-      // Seeding Programs
-      seedAsyncPrograms()
-        .then(() => {
-          // Seeding Projects & adding Projects to Programs
-          seedAsyncProjects()
-            .then(() => {
-              // Seeding Resources & adding Resources to Projects
-              seedAsyncResources()
-            })
-            .then(() => {
-              // Seeding Users
-              seedAsyncUsers()
-            })
-        })
-    } catch(err) { res.send(err) }
-    
-  } catch(err) { return res.send(err) }
-  return res.json({ message: 'Finished Seeding Database' })
-}
 
 module.exports = {
   seedDatabase,

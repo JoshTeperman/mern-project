@@ -8,10 +8,9 @@ const verifyToken = (token) => {
 
 const authenticateRequest = (req, res, next) => {
   if ( req.path.match(/seed/) ) return next();
-
   const { token } = req.headers
   if (!token) {
-    return res.status(403).json({
+    return res.json({
       error: {
         status: 403,
         message: 'Could not authenticate user. Login required.'
@@ -20,7 +19,7 @@ const authenticateRequest = (req, res, next) => {
   }
   const authenticatedUser = verifyToken(token)
   if (!authenticatedUser) {
-    return res.status(403).json({
+    return res.json({
       error: {
         status: 403,
         message: 'Could not authenticate user'

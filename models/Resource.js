@@ -27,7 +27,7 @@ const resourceSchema = new Schema({
     type: Boolean,
     default: false
   }
-})
+}) 
 
 const Resource = mongoose.model('Resource', resourceSchema)
 

@@ -7,10 +7,6 @@ const { createUser } = require('../../controllers/user-controller')
 const { generateToken } = require('../../utils/auth-utils')
 const { User } = require('../../models/User')
 
-const userObject = {
-
-};
-
 describe("Admin Routes", async () => {
   let server;
   
@@ -45,50 +41,96 @@ describe("Admin Routes", async () => {
       })
 
       const token = await generateToken(testUser.email)
-        await request(server)
-        .get('/admin/users')
-        .set({ token })
-        .expect(200)
-        .expect((res) => {
-          const result = JSON.parse(res.text)
-          assert.notExists(result.error)
-          assert.exists(result.users)
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    })
-  })
-
-  describe.skip('GET: admin/clients', () => {
-    it('returns 200 status with the correct authorization', async () => {
       await request(server)
-        .get('/admin/clients')
-        .expect(200)
+      .get('/admin/users')
+      .set({ token })
+      .expect(200)
+      .expect((res) => {
+        const result = JSON.parse(res.text)
+        assert.notExists(result.error)
+        assert.exists(result.users)
+      })
+      .catch(err => {
+        console.log(err);
+      })
     })
   })
 
-  describe.skip('GET: admin/programs', () => {
+  describe('GET: admin/clients', async () => {
+    const testUser = await createUser({ 
+        _id: new mongoose.Types.ObjectId().toString(), 
+        email: 'test@gmail.com', 
+        password: 'password', 
+        role: 'student' 
+    })
+
+    const token = await generateToken(testUser.email)
+
+    it('returns 200 status with the correct authorization', async () => {
+    await request(server)
+      .get('/admin/clients')
+      .set({ token })
+      .expect(200)
+      .expect((res) => {
+        const result = JSON.parse(res.text)
+        assert.notExists(result.error)
+        assert.ok(result)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    })
+  })
+
+  describe('GET: admin/projects', async () => {
+    const testUser = await createUser({ 
+        _id: new mongoose.Types.ObjectId().toString(), 
+        email: 'test@gmail.com', 
+        password: 'password', 
+        role: 'student' 
+    })
+
+    const token = await generateToken(testUser.email)
+
+    it('returns 200 status with the correct authorization', async () => {
+    await request(server)
+      .get('/admin/projects')
+      .set({ token })
+      .expect(200)
+      .expect((res) => {
+        const result = JSON.parse(res.text)
+        assert.notExists(result.error)
+        assert.ok(result)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    })
+  })
+
+  describe('GET: admin/resources', async () => {
+    const testUser = await createUser({ 
+      _id: new mongoose.Types.ObjectId().toString(), 
+      email: 'test@gmail.com', 
+      password: 'password', 
+      role: 'student' 
+    })
+
+    const token = await generateToken(testUser.email)
+
     it('returns 200 status with the correct authorization', async () => {
       await request(server)
         .get('/admin/programs')
         .expect(200)
-    })
-  })
-
-  describe.skip('GET: admin/projects', () => {
-    it('returns 200 status with the correct authorization', async () => {
-      await request(server)
-        .get('/admin/projects')
-        .expect(200)
-    })
-  })
-
-  describe.skip('GET: admin/resources', () => {
-    it('returns 200 status with the correct authorization', async () => {
-      await request(server)
-        .get('/admin/resources')
-        .expect(200)
+        .set({ token })
+        .expect((res) => {
+          const result = JSON.parse(res.text)
+          assert.notExists(result.error)
+          assert.ok(result)
+        })
+        .catch(err => {
+          console.log(err);
+        })
     })
   })
 })

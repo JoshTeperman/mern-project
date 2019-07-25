@@ -15,7 +15,6 @@ const login = async (req, res) => {
         const result = await checkPassword(password, foundUser.password)
         if (result) {
           const token = await generateToken(foundUser)
-          console.log(token);
           return res.send({ 
             user: foundUser,
             token: token 
@@ -28,7 +27,7 @@ const login = async (req, res) => {
       }
     } catch(err) {
       console.log(err.message);
-      return res.json({ 
+      return res.status(403).json({ 
         error: { message: 'An error occured', status: 404 }
       })    
     }

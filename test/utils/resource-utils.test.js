@@ -1,7 +1,7 @@
 const { assert } = require('chai')
 const mongoose = require('mongoose')
 const { Resource } = require('../../models/Resource')
-const { createResource } = require('../../utils/Resource-utils')
+const { createResource } = require('../../controllers/resource-controller')
 
 describe('Resource', () => {
   before(async() => {

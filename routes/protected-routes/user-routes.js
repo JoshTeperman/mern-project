@@ -14,7 +14,7 @@ router.get('/profile', profile)
 router.put('/profile/edit', editProfile)
 router.get('/stats', getUserStats)
 
-router.get('/program', getPrograms)
+router.get('/programs', getPrograms)
 router.get('/program/:id', getProgram)
 
 router.get('/project/:id', getProject)

@@ -4,6 +4,7 @@ const { assert } = require("chai")
 const mongoose = require("mongoose");
 const { generateToken } = require('../../utils/auth-utils')
 const { createUser } = require('../../controllers/user-controller')
+const { createProgram } = require('../../controllers/program-controller')
 
 describe("User Routes", () => {
   it("has a module", () => {
@@ -54,36 +55,5 @@ describe("User Routes", () => {
           .expect(200)
       })
     })
-
-    describe('GET: user/program/:id', () => {
-      it.skip('returns 200 status with the correct authorization', async () => {
-        await request(server)
-          .get('/user/program/:id')
-          .set({ token })
-          .expect(200)
-      })
-    })
-  
-    describe('GET: user/project/:id', async () => {
-      // const project = await Project.findOne()
-      const fakeId = await mongoose.Types.ObjectId().toString()
-      it('returns 200 status with the correct authorization', async () => {
-        await request(server)
-          .get(`/user/project/${fakeId}`)
-          .set({ token })
-          .expect(200)
-      })
-    })
-
   })
 })
-
-
-// router.get('/profile', profile)
-// router.get('/user-stats', userStats)
-
-// router.get('/program/:id', fetchProgram)
-// router.get('/program/:id/projects', fetchProjects)
-// router.get('/project/:id', fetchProject)
-// router.get('/project/:id/resources', fetchResources)
-// router.get('/project/:id/resources/:resourceId', fetchResource)

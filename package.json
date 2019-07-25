@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --recursive --bail --timeout 2000",
+    "test": "mocha --recursive",
     "start": "nodemon start"
   },
   "keywords": [],

@@ -8,7 +8,7 @@ const getUser = async (req, res) => {
   const { email } = verifyToken(token)
   if (!email) {
     console.log('user not authenticated, sending back error object');
-    return res.status(403).json({
+    return res.json({
       error: {
         status: 403,
         message: 'Could not authenticate user'
@@ -37,8 +37,9 @@ const createUser = async (userObject) => {
       clientID: userObject.clientID
     })
     return await newUser.save()
-  } catch(err) {
-    console.log(err);
+  } catch(error) {
+    console.log(error.message);
+    return { error }
   }
 }
 
@@ -58,7 +59,7 @@ const editCurrentUser = async (req, res) => {
     const currentUser = await User.findOne({ email: req.user.email })
     const result = await editUser(currentUser._id, userObject)
     if (result.error) {
-      res.status(400).json({
+      res.json({
         error: {
           status: 400,
           message: 'Could not update user'
@@ -66,8 +67,8 @@ const editCurrentUser = async (req, res) => {
       })
     }
     res.status(200).json({ message: 'Successfully updated user', status: 200 })
-  } catch(err) {
-    return res.status(400).json({
+  } catch(error) {
+    return res.json({
       error: {
         status: 400,
         message: 'Could not update user profile'
@@ -93,8 +94,11 @@ const assignProgramToUser = (userID, programID) => {
   User.updateOne({ 
     _id: userID 
   }, { $push: { programs: programID }
-  }).exec((err) => {
-    if (err) { console.log(err) }
+  }).exec((error) => {
+    if (error) { 
+      console.log(error) 
+      return { error }
+    }
   })
 }
 
