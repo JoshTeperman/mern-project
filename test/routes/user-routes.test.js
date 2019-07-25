@@ -54,7 +54,7 @@ describe("User Routes", () => {
           .expect(200)
       })
     })
-  
+
     describe('GET: user/program/:id', () => {
       it.skip('returns 200 status with the correct authorization', async () => {
         await request(server)
