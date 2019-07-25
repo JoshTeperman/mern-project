@@ -13,14 +13,14 @@ const { createProgram, assignProjectToProgram } = require('./Program-utils')
 const { createResource } = require('./Resource-utils')
 const { createProject, assignResourceToProject } = require('./Project-utils')
 
-
-const seedClients = async () => {
+const seedAsyncClients = async () => {
   console.log('Seeding Clients');
   try {
     return clientData.map(async (companyName) => {
       try {
         let newObjectId = await new mongoose.Types.ObjectId().toString()
         const newClient = await createClient({ companyName: companyName, _id: newObjectId })
+        console.log('created new client');
         return newClient
       } catch(err) {
         console.log(err);
@@ -29,14 +29,16 @@ const seedClients = async () => {
   } catch(err) { console.log(err) }
 }
 
-const seedPrograms = () => {
+const seedAsyncPrograms = () => {
   console.log('Seeding Programs ...');
   return new Promise( async (resolve, reject) => {
     try {
       const clients = await Client.find()
+      
       const programPromises = programData.map( async (program, index) => {
         program._id = new mongoose.Types.ObjectId().toString()
         const newProgram = await createProgram(program)
+        console.log('created new program');
         const client = clients[index]
         assignProgramToClient(client._id, newProgram._id)
         return newProgram
@@ -44,12 +46,13 @@ const seedPrograms = () => {
       await Promise.all(programPromises)
       resolve()
     } catch(err) {
+      console.log(err);
       reject(err)
     }
   })
 }
 
-const seedProjects = async () => {
+const seedAsyncProjects = async () => {
   console.log('Seeding Projects');
   const programs = await Program.find()
   return new Promise( async (resolve, reject) => {
@@ -57,6 +60,7 @@ const seedProjects = async () => {
       const projectPromises = projectOneData.map( async (project) => {
         project._id = await new mongoose.Types.ObjectId().toString()  
         const newProject = await createProject(project)
+        console.log('created new project');
         programs.slice(0, 3).forEach(program => {
           assignProjectToProgram(program._id, newProject._id)
         })
@@ -64,6 +68,7 @@ const seedProjects = async () => {
       projectTwoData.map( async (project) => {
         project._id = await new mongoose.Types.ObjectId().toString()
         const newProject = await createProject(project)
+        console.log('created new project');
         programs.slice(3).forEach(program => {
           assignProjectToProgram(program._id, newProject._id)
         })
@@ -71,18 +76,20 @@ const seedProjects = async () => {
       const newProjects = Promise.all(projectPromises)
       resolve(newProjects)
     } catch(err) {
+      console.log(err);
       reject(err)
     }
   })
 }
 
-const seedResources = async () => {
+const seedAsyncResources = async () => {
   console.log('Seeding Resources');
   const projects = await Project.find()
   try {
     resourceData.map( async (resourceObject) => {
       resourceObject._id = new mongoose.Types.ObjectId().toString()  
       const newResource = await createResource(resourceObject)
+      console.log('created new project');
       projects.forEach(project => {
         assignResourceToProject(project._id, newResource._id)
       })
@@ -92,7 +99,7 @@ const seedResources = async () => {
   }
 }
 
-const seedUsers = async () =>  {
+const seedAsyncUsers = async () =>  {
   console.log('Seeding Users');
   const coderAcademy = await Client.findOne({ companyName: 'Coder Academy'})
   const program = await Program.findOne({ name: 'test program' })
@@ -107,11 +114,13 @@ const seedUsers = async () =>  {
       clientID: coderAcademy._id.toString()
     }
     await createUser(superAdminUser)
+    console.log('created new user');
 
     // Seeding Student Users
     userData.map( async (userObject) => {
       userObject._id = new mongoose.Types.ObjectId().toString()
       const newUser = await createUser(userObject)
+      console.log('created new user');
       assignEmployeeToClient(coderAcademy._id, newUser._id)
       assignProgramToUser(newUser._id, program._id)
     })
@@ -130,20 +139,22 @@ const seedDatabase = async (req, res) => {
     console.log('Starting Database Seed...');  
     try {
       // Seeding Clients
-      const clientPromises = await seedClients()
+      const clientPromises = await seedAsyncClients()
       await Promise.all(clientPromises)
       // Seeding Programs
-      seedPrograms()
+      seedAsyncPrograms()
         .then(() => {
           // Seeding Projects & adding Projects to Programs
-          seedProjects()
+          seedAsyncProjects()
             .then(() => {
               // Seeding Resources & adding Resources to Projects
-              seedResources()
+              seedAsyncResources()
+            })
+            .then(() => {
+              // Seeding Users
+              seedAsyncUsers()
             })
         })
-      // Seeding Users
-      seedUsers()
     } catch(err) { res.send(err) }
     
   } catch(err) { return res.send(err) }
@@ -151,5 +162,5 @@ const seedDatabase = async (req, res) => {
 }
 
 module.exports = {
-  seedDatabase
+  seedDatabase,
 }

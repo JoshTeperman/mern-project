@@ -67,6 +67,8 @@ describe('User', () => {
         }
         const duplicate = await createUser(userObject)
         assert.exists(duplicate.error)
+        const duplicates = await User.find({ email: 'test@gmail.com' })
+        assert.equal(duplicates.length, 1)
       })
     })
 
